@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/landingPage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dining Review</title>
+    <style>
+    	body {
+		    margin: 0;
+		    padding: 0;
+		    color: #ccc;
+		}
+		
+        .container {
+            background-color: #ccc;
+        }
+
+        .titleBar {
+            background-color: white;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 10vh;
+            box-sizing: border-box;
+        }
+  
+        .logo {
+            flex-grow: 1; 
+            display: flex; 
+            justify-content: center;
+            height: 30px;
+        }
+  
+        .user-info {
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+  
+        .user-icon {
+            height: 2rem;
+        }
+  
+        .dropdown-arrow {
+            margin-left: 0.5rem;
+            color: black;
+        }
+        
+        .navbar {
+            background-color: #990000;
+            display: flex;
+            justify-content: space-between;
+            height: 10vh;
+        }
+    
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+    
+        .navbar-logo {
+            height: 10vh;
+        }
+    </style>
+</head>
+<body>
+	<nav class="navbar">
+        <div class="navbar-content">
+            <img src="assets/usclogo.png" alt="Navbar-Logo" class="navbar-logo"/>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="titleBar">
+            <div class="logo">
+                <img src="assets/myDiningReview.png" alt="Website Logo" />
+            </div>
+            <div class="user-info">
+                <img src="assets/defaultpfp.png" alt="User Icon" class="user-icon" />
+                <span class="dropdown-arrow">▼</span>
+            </div>
+        </div>
+        <div class="inner-container">
+	        <div class="operating-hours">
+	            <div>Operating Hours (all dining halls):</div>
+	            <div>7:00AM - 10:00PM</div>
+	        </div>
+	
+	        <div id="dining-options" class="dining-options">
+	        </div>
+    	</div>
+    </div>
+    
+     <script src="js/landingPage.js"></script>
+</body>
+</html>
