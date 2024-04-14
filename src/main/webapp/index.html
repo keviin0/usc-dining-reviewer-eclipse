@@ -1,41 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/landingPage.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dining Review</title>
-    <style>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="css/landingPage.css" />
+        <link rel="stylesheet" href="css/profile-menu.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Dining Review</title>
+        <style></style>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <img
+                    src="assets/usclogo.png"
+                    alt="Navbar-Logo"
+                    class="navbar-logo" />
+            </div>
+        </nav>
+        <div class="container">
+            <div class="titleBar">
+                <div class="logo">
+                    <img src="assets/myDiningReview.png" alt="Website Logo" />
+                </div>
+                <div class="user-info">
+                    <img
+                        src="assets/defaultpfp.png"
+                        alt="User Icon"
+                        class="user-icon-image"
+                        id="minimized-icon" />
+                    <!-- Use the "fa-chevron-down" class for the arrow icon -->
+                    <span class="dropdown-arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                    <!-- The dropdown menu -->
+                    <div class="dropdown-menu">
+                        <div class="expanded-state">
+                            <div class="TitleArea" style="">
+                                <img class="user-pfp" src="assets/defaultpfp.png" />
+                                <div id="expanded-username">username</div>
+                                <div class="arrow"> <i class="fas fa-chevron-up"></i> </div>
+                            </div>
+                            <div class="OptionWrapper">
+                                <div class="Option">
+                                    <div class="Appearance">Appearance</div>
+                                </div>
+                                <div class="Option">
+                                    <div class="Reviews">Reviews</div>
+                                </div>
+                                <div class="Option">
+                                    <div class="Settings">Settings</div>
+                                </div>
+                            </div>
+                            <div class="Logout-div">
+                                <div class="LogOut">Log OUT</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-container">
+                <div class="operating-hours">
+                    <div>Operating Hours (all dining halls):</div>
+                    <div>7:00AM - 10:00PM</div>
+                </div>
 
-    </style>
-</head>
-<body>
-	<nav class="navbar">
-        <div class="navbar-content">
-            <img src="assets/usclogo.png" alt="Navbar-Logo" class="navbar-logo"/>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="titleBar">
-            <div class="logo">
-                <img src="assets/myDiningReview.png" alt="Website Logo" />
-            </div>
-            <div class="user-info">
-                <img src="assets/defaultpfp.png" alt="User Icon" class="user-icon-image" />
-                <span class="dropdown-arrow">▼</span>
+                <div id="dining-options" class="dining-options"></div>
             </div>
         </div>
-        <div class="inner-container">
-	        <div class="operating-hours">
-	            <div>Operating Hours (all dining halls):</div>
-	            <div>7:00AM - 10:00PM</div>
-	        </div>
-	
-	        <div id="dining-options" class="dining-options">
-	        </div>
-    	</div>
-    </div>
-    
-     <script src="js/landingPage.js"></script>
-</body>
+
+        <script src="js/landingPage.js"></script>
+        <script src="js/profile-menu.js"></script>
+    </body>
 </html>
