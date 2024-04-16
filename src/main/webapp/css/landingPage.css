@@ -25,20 +25,7 @@ body {
     height: 30px;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    color: white;
-}
 
-.user-icon-image {
-    height: 3rem;
-}
-
-.dropdown-arrow {
-    margin-left: 0.5rem;
-    color: black;
-}
 
 .navbar {
     background-color: #990000;
