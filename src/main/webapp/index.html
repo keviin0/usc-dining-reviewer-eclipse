@@ -46,7 +46,7 @@
                             </div>
                             <div class="OptionWrapper">
                                <!-- displays the "Location" toggle -->
-                                <div class="Option" onClick="locationToggle()">
+                                <div class="Option" onClick="locationToggle()" id="location-div">
                                     <button
                                         class="LocationToggle"
                                         onClick="locationToggle()">
@@ -63,24 +63,24 @@
                                 </div>
                                 
                                 <!-- Link to the "Reviews" page -->
-                                <a href="Reviews.html" class="Option">
+                                <a href="Reviews.html" class="Option" id="reviewsLink">
                                     <div class="Reviews">Reviews</div>
                                 </a>
                                 
                                 <!-- Toggle to the "Settings" Menu -->
-                                <div onClick="settingsToggle()" class="Option">
+                                <div onClick="settingsToggle()" class="Option" id="settingsToggle">
                                     <div class="Settings">Settings</div>
                                 </div>
                                 
                                 
                                 <!--Only displayed if settings button is displayed-->
-                                <div onClick="" class="Option_Settings">
+                                <div onClick="ChangeUsername()" class="Option_Settings" id="usernameOption">
                                     <div class="Settings">Username</div>
                                 </div>
-                                <div onClick="ChangeCredentials()" class="Option_Settings">
+                                <div onClick="ChangeCredentials()" class="Option_Settings" id="credentialsOption">
                                     <div class="Settings">Email/Password</div>
                                 </div>
-                                <div onClick="" class="Option_Settings Option_Darktoggle">
+                                <div onClick="" class="Option_Settings Option_Darktoggle" id="darkModeOption">
                                     <div class="Settings">Dark/Light</div>
                                     <!-- Rounded switch -->
                                     <div id="darktoggle-div">
@@ -92,11 +92,8 @@
                                 </div>
                             </div>
                             
-                            <div class="Logout-div">
-                                <button class="LogOut" onClick="logout()">
-                                    Log OUT
-                                </button>
-                                
+                            <div class="Logout-div" id="logoutButton">  
+                                <button class="LogOut" onClick="login()">Log IN</button>                              
                             </div>
                         </div>
                     </div>

@@ -8,9 +8,9 @@ var setting = 3;
 // state = 2: location toggle view
 // state = 3: setting toggle view
 
+var logged = false;
+
 document.addEventListener("DOMContentLoaded", function () {
-    
-    
     // ---- ARROW MINIMIZE EXPAND FUNCTION ---------//
     // elements for changing profile view
     var arrow = document.querySelector(".dropdown-arrow");
@@ -21,7 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
         //menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         menu.style.display = "flex";
         state = norm;
+
     });
+    
     closearrow.addEventListener("click", function () {
         if (state === norm) {
             // the profile mneu is norm state so when close arrow is clicked we should close the menu
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             menu.style.display = "none";
         }
     });
-    
+
     // --------- LOCATION TOGGLE --------//
     // Get the checkbox element for location
     var locationToggle = document.querySelector(
@@ -93,22 +95,48 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("lightCSS").disabled = false;
         }
     });
-    
-    
-    
+
+    // Check if user is logged in
+    if (isLoggedin()) {
+        // User is logged in, show all menu options
+        document.getElementById("reviewsLink").style.display = "flex";
+        document.getElementById("settingsToggle").style.display = "flex";
+        document.getElementById("logoutButton").innerHTML =
+            '<button class="LogOut" onClick="logout()">Log OUT</button>';
+    } else {
+        // User is not logged in, hide specific menu options
+        document.getElementById("reviewsLink").style.display = "none";
+        document.getElementById("settingsToggle").style.display = "none";
+        document.getElementById("usernameOption").style.display = "none";
+        document.getElementById("credentialsOption").style.display = "none";
+        document.getElementById("darkModeOption").style.display="flex";
+        document.getElementById("logoutButton").innerHTML =
+            '<button class="LogOut" onClick="login()">Log IN</button>';
+    }
 });
 
 // ------- UPDATE SOMETHING EITHER LOCALSTORAGE, A COOKIE, OR URL PARAM TODO <<<<<<<<<
 function logout() {
     // Print into console this text to verify logout function was called
+    alert("Logout is not fully impelemented");
     console.log("logout Initiated!");
+    logged = false;
 }
 
+function login() {
+    // Print into console this text to verify login function was called
+    alert("Login is not fully impelemented");
+    console.log("logout Initiated!");
+    logged = true;
+}
 
 // SWITCH MENU TO LOCATION VIEW
 function locationToggle() {
     state = loc; // LOCATION STATE
 
+    // just incase user is not logged in
+    document.getElementById("darkModeOption").style.display="none";
+    
     // Get the elements that need to be modified
     var optionWrapper = document.querySelector(".OptionWrapper");
     var titleArea = document.querySelector(".TitleArea");
@@ -135,7 +163,6 @@ function locationToggle() {
     title.textContent = "Location";
 }
 
-
 // SWITCH MENU TO SETTINGS VIEW
 function settingsToggle() {
     state = setting; // LOCATION STATE
@@ -143,7 +170,6 @@ function settingsToggle() {
     // Get the elements that need to be modified
     var optionWrapper = document.querySelector(".OptionWrapper");
     var titleArea = document.querySelector(".TitleArea");
-
 
     // Get all the .Option elements inside .OptionWrapper
     var options = optionWrapper.querySelectorAll(".Option");
@@ -154,17 +180,17 @@ function settingsToggle() {
     });
 
     // add new options - username, email/password, Dark/Light
-     options = optionWrapper.querySelectorAll(".Option_Settings");
-     // Loop through each .Option element and display it
-     options.forEach(function (option) {
-         option.style.display = "flex";
-     });
-    
+    options = optionWrapper.querySelectorAll(".Option_Settings");
+    // Loop through each .Option element and display it
+    options.forEach(function (option) {
+        option.style.display = "flex";
+    });
+
     // Hide the profile icon - doesnt work rn
     var pfp = titleArea.querySelector(".user-pfp");
     pfp.style.display = "hidden";
 
-    // Update the title of the menu to "Location"
+    // Update the title of the menu to "Settings"
     var title = titleArea.querySelector("#expanded-username");
     title.textContent = "Settings";
 }
@@ -173,32 +199,34 @@ function settingsToggle() {
  * Currently only changes username back to placeholder text
  */
 function toggleToNormal() {
-    
-
     /// Get the elements that need to be modified
     var optionWrapper = document.querySelector(".OptionWrapper");
     var titleArea = document.querySelector(".TitleArea");
     var locationToggleBtn = document.querySelector(".LocationToggle");
     var switchdiv = document.getElementById("switch-div");
-
+    
     // Get all the .Option elements inside .OptionWrapper
     var options = optionWrapper.querySelectorAll(".Option");
-
-    // Loop through each .Option element and show it
-    options.forEach(function (option) {
-        option.style.display = "flex";
-    });
-
+    
+    if (isLoggedin()) {
+        // Loop through each .Option element and show it
+        options.forEach(function (option) {
+            option.style.display = "flex";
+        });
+        // hide setting options
+        options = optionWrapper.querySelectorAll(".Option_Settings");
+        // Loop through each .Option_Settings element and hide it
+        options.forEach(function (option) {
+            option.style.display = "none";
+        });
+    } else {
+        document.getElementById("location-div").style.display = "flex";
+        document.getElementById("darkModeOption").style.display="flex";
+    }
+    
     // hide the switch div
     switchdiv.style.display = "none";
     
-    // hide setting options
-     options = optionWrapper.querySelectorAll(".Option_Settings");
-     // Loop through each .Option_Settings element and hide it
-     options.forEach(function (option) {
-         option.style.display = "none";
-     });
-
     // Update the title of the menu back to "username"
     var title = titleArea.querySelector("#expanded-username");
     title.textContent = "username";
@@ -206,28 +234,21 @@ function toggleToNormal() {
     // Show the profile icon
     var pfp = titleArea.querySelector(".user-pfp");
     pfp.style.display = "block";
-    
+
     state = norm;
 }
 
-// changes CSS to darkmode
-//function changeCSSLink(cssFile) {
-//    var head = document.querySelector("head");
-//    var linkElement = document.querySelector("link[href*='landingPage']");
-//
-//    // Remove the existing CSS link
-//    head.removeChild(linkElement);
-//
-//    // Create a new link element for the specified CSS file
-//    var newLinkElement = document.createElement("link");
-//    newLinkElement.rel = "stylesheet";
-//    newLinkElement.href = cssFile;
-//
-//    // Append the new link element to the head
-//    head.appendChild(newLinkElement);
-//}
-
-
-function ChangeCredentials(){
+// UNFINISHED NEED TO FINISH TODO <<<<<<<<<<<<<<<<<
+function ChangeCredentials() {
     alert("CHANGING EMAIL AND PASSWORD NOT IMPLEMENTED YET!");
+}
+
+function ChangeUsername() {
+    alert("CHANGING USERNAME NOT IMPLEMENTED YET!");
+}
+
+function isLoggedin() {
+    // get the user logged in state here
+
+    return logged;
 }
