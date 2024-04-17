@@ -2,7 +2,7 @@
 .dropdown-menu {
     display: none;
     position: absolute;
-    
+
     min-width: 278px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 2;
@@ -28,8 +28,7 @@
 
 /*expanded state*/
 .expanded-state {
-    width: 100%;
-    height: 100%;
+
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
@@ -40,7 +39,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    display: inline-flex;
+    display: flex;
 }
 #expanded-username {
     width: 200px;
@@ -72,7 +71,6 @@
 }
 .OptionWrapper {
     align-self: stretch;
-    height: 180px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
@@ -80,7 +78,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 13px;
     display: flex;
 }
 .Option {
@@ -99,12 +96,15 @@
 .Option:hover {
     background-color: #c0c0c0; /* Gray background color */
     border-radius: 20px;
-    
+
     opacity: 0.7;
 }
+
+
+
 .Logout-div {
     align-self: stretch;
-    color:aqua;
+    color: aqua;
     padding: 10px;
     justify-content: center;
     align-items: center;
@@ -141,7 +141,7 @@
     word-wrap: break-word;
 }
 
-.LocationToggle{
+.LocationToggle {
     padding-left: 0px; /* align toggle text with the rest of the options*/
     background: rgba(0, 0, 0, 0);
     border: 0px;
@@ -150,4 +150,88 @@
     width: 81px;
     height: 81px;
     border-radius: 9999px;
+}
+
+
+/* The switch - the box around the slider */
+
+#switch-div {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: black;
+}
+
+.l_dSwitch {
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 600;
+    line-height: 28px;
+    word-wrap: break-word;
+    margin-right: auto; /* Pushes the text to the left */
+}
+
+/* CSS template below from w3schools.com */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 36px;
+    width: 36px;
+    left: 0px;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    bottom: -1px;
+    background-color: #ffffff;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }
