@@ -2,7 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="css/landingPage.css" />
+        <link rel="stylesheet" href="css/landingPage.css" id="lightCSS"/>
+        <link rel="stylesheet" href="css/landingPageDark.css" id="darkCSS" disabled/>
         <link rel="stylesheet" href="css/profile-menu.css" />
         <link
             rel="stylesheet"
@@ -39,45 +40,60 @@
                     <div class="dropdown-menu">
                         <div class="expanded-state">
                             <div class="TitleArea" style="">
-                                <img class="user-pfp" src="assets/defaultpfp.png" />
+                                <img class="user-pfp" src="assets/defaultpfp.png" >
                                 <div id="expanded-username">username</div>
                                 <div class="arrow"> <i class="fas fa-chevron-up"></i> </div>
                             </div>
                             <div class="OptionWrapper">
                                <!-- displays the "Location" toggle -->
-                                <div class="Option" onClick="locationToggle()">
+                                <div class="Option" onClick="locationToggle()" id="location-div">
                                     <button
                                         class="LocationToggle"
                                         onClick="locationToggle()">
                                         Location
                                     </button>
                                 </div>
-                                <!-- Rounded switch -->
-                                
+                                <!-- Rounded LOCATION switch -->
                                 <div id="switch-div">
-                                   <span class="SpanSwitch" style="color:black;"> Off/On </span>
+                                   <span class="SpanSwitch"> Off/On </span>
                                     <label class="switch">
-                                        <input type="checkbox" />
+                                        <input type="checkbox" >
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
                                 
-                                
                                 <!-- Link to the "Reviews" page -->
-                                <a href="Reviews.html" class="Option">
+                                <a href="Reviews.html" class="Option" id="reviewsLink">
                                     <div class="Reviews">Reviews</div>
                                 </a>
-                                <!-- Link to the "Settings" page -->
-                                <a href="Settings.html" class="Option">
+                                
+                                <!-- Toggle to the "Settings" Menu -->
+                                <div onClick="settingsToggle()" class="Option" id="settingsToggle">
                                     <div class="Settings">Settings</div>
-                                </a>
+                                </div>
+                                
+                                
+                                <!--Only displayed if settings button is displayed-->
+                                <div onClick="ChangeUsername()" class="Option_Settings" id="usernameOption">
+                                    <div class="Settings">Username</div>
+                                </div>
+                                <div onClick="ChangeCredentials()" class="Option_Settings" id="credentialsOption">
+                                    <div class="Settings">Email/Password</div>
+                                </div>
+                                <div onClick="" class="Option_Settings Option_Darktoggle" id="darkModeOption">
+                                    <div class="Settings">Dark/Light</div>
+                                    <!-- Rounded switch -->
+                                    <div id="darktoggle-div">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="Logout-div">
-                                <button class="LogOut" onClick="logout()">
-                                    Log OUT
-                                </button>
-                                
+                            <div class="Logout-div" id="logoutButton">  
+                                <button class="LogOut" onClick="login()">Log IN</button>                              
                             </div>
                         </div>
                     </div>
