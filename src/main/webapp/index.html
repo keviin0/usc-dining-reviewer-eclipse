@@ -44,10 +44,25 @@
                                 <div class="arrow"> <i class="fas fa-chevron-up"></i> </div>
                             </div>
                             <div class="OptionWrapper">
-                               <!-- Link to the "Appearance" page -->
-                                <a href="Appearance.html" class="Option">                                      
-                                    <div class="Appearance">Appearance</div>
-                                </a>
+                               <!-- displays the "Location" toggle -->
+                                <div class="Option" onClick="locationToggle()">
+                                    <button
+                                        class="LocationToggle"
+                                        onClick="locationToggle()">
+                                        Location
+                                    </button>
+                                </div>
+                                <!-- Rounded switch -->
+                                
+                                <div id="switch-div">
+                                   <span class="l_dSwitch" style="color:black;"> Light/Dark </span>
+                                    <label class="switch">
+                                        <input type="checkbox" />
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                
                                 <!-- Link to the "Reviews" page -->
                                 <a href="Reviews.html" class="Option">
                                     <div class="Reviews">Reviews</div>
@@ -57,8 +72,12 @@
                                     <div class="Settings">Settings</div>
                                 </a>
                             </div>
+                            
                             <div class="Logout-div">
-                                <div class="LogOut">Log OUT</div>
+                                <button class="LogOut" onClick="logout()">
+                                    Log OUT
+                                </button>
+                                
                             </div>
                         </div>
                     </div>
