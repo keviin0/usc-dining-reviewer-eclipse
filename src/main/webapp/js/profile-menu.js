@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var menu = document.querySelector(".dropdown-menu");
 
     arrow.addEventListener("click", function() {
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        //menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+        menu.style.display = "flex";
     });
 
     // Close the dropdown when clicking outside of it
@@ -13,3 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+function logout(){
+    // Print "logout worked!" text
+    console.log("logout worked!");
+}

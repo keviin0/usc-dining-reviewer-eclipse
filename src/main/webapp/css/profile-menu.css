@@ -2,13 +2,12 @@
 .dropdown-menu {
     display: none;
     position: absolute;
-
-    background-color: #f9f9f9;
+    
     min-width: 278px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 2;
-    top: 173px;
-    right: 38px;
+    top: 97px;
+    right: 1px;
 }
 
 /*minimized state*/
@@ -99,11 +98,13 @@
 }
 .Option:hover {
     background-color: #c0c0c0; /* Gray background color */
-
+    border-radius: 20px;
+    
     opacity: 0.7;
 }
 .Logout-div {
     align-self: stretch;
+    color:aqua;
     padding: 10px;
     justify-content: center;
     align-items: center;
@@ -111,6 +112,8 @@
     display: inline-flex;
 }
 .LogOut {
+    background: rgba(0, 0, 0, 0);
+    border: 0px;
     text-align: center;
     color: #990000;
     font-size: 14px;
@@ -121,7 +124,12 @@
     line-height: 19.6px;
     word-wrap: break-word;
 }
-.Appearance, 
+
+.LogOut:hover {
+    background-color: #c0c0c0; /* Gray background color */
+    border-radius: 20px;
+}
+.Appearance,
 .Reviews,
 .Settings {
     text-align: center;
