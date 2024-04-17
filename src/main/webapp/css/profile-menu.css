@@ -129,7 +129,7 @@
     background-color: #c0c0c0; /* Gray background color */
     border-radius: 20px;
 }
-.Appearance,
+.LocationToggle,
 .Reviews,
 .Settings {
     text-align: center;
@@ -139,6 +139,12 @@
     font-weight: 600;
     line-height: 28px;
     word-wrap: break-word;
+}
+
+.LocationToggle{
+    padding-left: 0px; /* align toggle text with the rest of the options*/
+    background: rgba(0, 0, 0, 0);
+    border: 0px;
 }
 .user-pfp {
     width: 81px;
