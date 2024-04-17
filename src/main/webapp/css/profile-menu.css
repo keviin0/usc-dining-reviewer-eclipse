@@ -83,7 +83,7 @@
 .Option {
     text-decoration: none;
     align-self: stretch;
-    height: 48px;
+    height: 30;
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 2px rgba(0, 0, 0, 0.15) solid;
@@ -95,8 +95,8 @@
 }
 .Option:hover {
     background-color: #c0c0c0; /* Gray background color */
-    border-radius: 20px;
-
+    padding-left: 5px;
+    border-radius: 15px;
     opacity: 0.7;
 }
 
@@ -234,4 +234,31 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+/* Settings menu */
+.Option_Settings{
+    text-decoration: none;
+    align-self: stretch;
+    height: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px rgba(0, 0, 0, 0.15) solid;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5px;
+    display: none;
+}
+
+.Option_Settings:hover {
+    background-color: #c0c0c0; /* Gray background color */
+    padding-left: 5px;
+    border-radius: 15px;
+    opacity: 0.7;
+}
+
+.Option_Darktoggle{
+    justify-content: space-between;
+    flex-direction:row;
 }
