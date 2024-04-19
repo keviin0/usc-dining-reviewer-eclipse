@@ -1,16 +1,21 @@
 body {
     margin: 0;
     padding: 0;
-    color: #000000;
+    color: #ffffff;
 }
 
+/* Styles for elements in dark mode */
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
 
 .container {
-    background-color: #ccc;
+    background-color: #000000;
 }
 
 .titleBar {
-    background-color: white;
+    background-color: #555555;
     padding: 0.5rem;
     display: flex;
     align-items: center;
@@ -85,7 +90,8 @@ body {
 
 .inner-container {
     padding: 1rem;
-    background-color: #ededed;
+    background-color: #272626;
+    color: white;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -98,14 +104,14 @@ body {
     align-items: center;
     flex-direction: column;
     margin: 7vh 0vh 2vh 0vh;
-    color: black;
+    color: #ffffff;
 }
 
 .dining-options {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    color: black;
+    color: #ffffff;
 }
 
 .option {
@@ -117,7 +123,7 @@ body {
 }
 
 .bar-background {
-    background-color: white;
+    background-color: #ffffff;
     height: 1vh;
     width: 20vh;
     border-radius: 5px;

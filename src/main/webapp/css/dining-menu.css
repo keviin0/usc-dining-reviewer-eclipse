@@ -1,0 +1,145 @@
+.divider {
+    border: none;
+    height: 2px;
+    background-color: black;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+    width: 99%;
+}
+h2 {
+    margin-bottom: 10px;
+    color: black;
+    margin-left: 10px;
+}
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.allergens {
+    display: flex;
+    justify-content: center;
+}
+.allergens span {
+    margin: 5px;
+}
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.food-details {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.food-allergens {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.food-allergens span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 0 2px;
+}
+.food-image-box {
+    width: 200px;
+    height: 150px;
+    background-color: lightgray;
+    margin-bottom: 10px;
+}
+.food-title {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+.legend {
+    margin-top: 30px;
+    margin-left: 10px;
+    font-size: 16px;
+    color: black;
+}
+.legend-item {
+    margin-right: 30px;
+    display: inline-block;
+}
+.food-links {
+    color: #990000;
+    text-align: center;
+}
+.legend-item span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 25px;
+    text-align: center;
+}
+.allergen-peanut {
+    background-color: red;
+}
+.allergen-gluten {
+    background-color: yellow;
+}
+.allergen-vegetarian {
+    background-color: green;
+}
+.allergen-vegan {
+    background-color: #90EE90;
+}
+.allergen-halal {
+    background-color: orange;
+}
+.allergen-wheat {
+    background-color: turquoise;
+}
+.allergen-tree-nuts {
+    background-color: #ADD8E6;
+}
+.allergen-dairy {
+    background-color: pink;
+}
+.allergen-egg {
+    background-color: blue;
+}
+.allergen-fish {
+    background-color: purple;
+}
+.filter-container {
+position: absolute;
+top: 150px;
+right: 50px;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+}
+
+.filter-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    padding: 20px;
+    width: 100px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.filter-options label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filter-container:hover .filter-options {
+    display: block;
+}
