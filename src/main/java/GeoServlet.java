@@ -19,7 +19,7 @@ public class GeoServlet extends HttpServlet {
          response.setCharacterEncoding("UTF-8");
 
          DHall d = new Gson().fromJson(request.getReader(), DHall.class);
-         String dName = d.dName;
+         String dName = d.diningHall;
          Gson gson = new Gson();
     	 Database.updateDiningHallPop(dName);
     	 int numPeople = Database.getDiningHallPop(dName);

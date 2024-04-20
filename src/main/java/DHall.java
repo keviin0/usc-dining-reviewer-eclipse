@@ -1,4 +1,4 @@
 
 public class DHall {
-	public String dName;
+	public String diningHall;
 }
