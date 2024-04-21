@@ -69,7 +69,7 @@ function getNumUsers(diningHall){
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
             
-            // Do something with the latitude and longitude
+            // current position of user 
             console.log("Latitude:", latitude);
             console.log("Longitude:", longitude);
         },
@@ -83,7 +83,8 @@ function getNumUsers(diningHall){
 } else {
     console.error("Geolocation is not supported by this browser.");
 }
-	if(diningHall == "Everybody's Kitchen")
+
+if(diningHall == "EVK")
 {
 	diningHallLat = 34.02283;
     diningHallLong = -118.28099; 
@@ -93,7 +94,7 @@ if(diningHall == "Parkside")
 	diningHallLat = 34.019405;
 	diningHallLong = -118.28582; 
 }
-if(diningHall == "USC Village Dining Hall")
+if(diningHall == "McCarthy")
 {
 	diningHallLat = 34.022508;
 	diningHallLong = -118.283215; 
@@ -102,11 +103,39 @@ if(diningHall == "USC Village Dining Hall")
 if(withinRadius(diningHallLat,diningHallLong,latitude,longitude))
 {
 	//CURRENT USER IS WITHING RADIUS OF DINNING HALL
-	userCounts[diningHall] = userCounts[diningHall] ? userCounts[diningHall] + 1 : 1;
-	
+	//function to send that dining hall to servle t
+	  function sendDataToServlet(diningHall) {
+    	const formData = {
+            diningHall: diningHall
+        };
+
+    	// Create XMLHttpRequest object
+    	const xhr = new XMLHttpRequest();
+    	const method = "POST";
+    	const url = "geoServlet?" + new URLSearchParams(formData).toString();
+    	console.log(url);
+
+    
+    	// Define callback function
+    	xhr.onreadystatechange = function() {
+    	    if (xhr.readyState === xhr.DONE) {
+    	    	
+    	        if (xhr.status === 200) {
+					const data = JSON.parse(xhr.responseText);
+					
+				}
+			else {
+    	            console.error('Error:', xhr.status);
+    	        }
+    }
+    
+    xhr.open(method,url,true);
+    	xhr.send();
+    //date would be the updated number of users from databse 
+	userCounts[diningHall] = data;
+
 }
-	numUsers = userCounts[diningHall] || 0;
-	return numUsers;
+	return data;
 };
 
 
@@ -130,11 +159,11 @@ function calculateActivityLevel(numUsers) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const diningOptions = [
-        { name: "Everybody's Kitchen", activityLevel: '13%', waitTime: '20 min.', logo: 'assets/everybodys_kitchen_logo.png' },
+        { name: "EVK", activityLevel: '13%', waitTime: '20 min.', logo: 'assets/everybodys_kitchen_logo.png' },
         { name: "Parkside", activityLevel: '91%', waitTime: '30 min.', logo: 'assets/parkside_logo.png' },
-        { name: "USC Village Dining Hall", activityLevel: '27%', waitTime: '10 min.', logo: 'assets/usc_village_logo.png'}
+        { name: "McCarthy", activityLevel: '27%', waitTime: '10 min.', logo: 'assets/usc_village_logo.png'}
     ];
-    console.log("here 1");
+   
     
 
     const diningOptionsContainer = document.getElementById('dining-options');
