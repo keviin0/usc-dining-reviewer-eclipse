@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS sql3699751;
-CREATE DATABASE sql3699751;
+DROP DATABASE IF EXISTS defaultdb;
+CREATE DATABASE defaultdb;
 
-USE sql3699751;
+USE defaultdb;
 
 
 
@@ -36,3 +36,6 @@ CREATE TABLE reviews(
     FOREIGN KEY fk2(dishName) REFERENCES dishes(dishName) ON DELETE CASCADE
 );
 
+INSERT INTO users(username, hashedPassword, profilePictureFileName) VALUES ('username','password', 'filename');
+
+SELECT * FROM users;
