@@ -1,68 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const breakfastMenuContainer = document.querySelector('.breakfast-menu');
-    const lunchMenuContainer = document.querySelector('.lunch-menu');
-    const filterButton = document.getElementById('filterButton');
-    const filterOptions = document.querySelector('.filter-options');
-    const filterCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
-
-    filterButton.addEventListener('click', () => {
-        filterOptions.style.display = filterOptions.style.display === 'flex' ? 'none' : 'flex';
-    });
-
-    // Example JSON data for menu items
-    const menuData = {
-    "breakfast": [
-        {
-            "dishName": "Vegan Pancakes",
-            "allergens": ["gluten"],
-            "isVegan": true,
-            "isVegetarian": true
-        },
-        {
-            "dishName": "Omelette with Cheese",
-            "allergens": ["egg", "dairy"],
-            "isVegan": false,
-            "isVegetarian": true
-        },
-        {
-            "dishName": "Granola with Yogurt",
-            "allergens": ["dairy", "nuts"],
-            "isVegan": false,
-            "isVegetarian": true
-        },
-        {
-            "dishName": "Bagel with Smoked Salmon",
-            "allergens": ["fish", "gluten"],
-            "isVegan": false,
-            "isVegetarian": false
-        }
-    ],
-    "lunch": [
-        {
-            "dishName": "Halal Beef Sandwich",
-            "allergens": ["gluten", "halal"],
-            "isVegan": false,
-            "isVegetarian": false
-        },
-        {
-            "dishName": "Veggie Burger",
-            "allergens": ["gluten"],
-            "isVegan": true,
-            "isVegetarian": true
-        },
-        {
-            "dishName": "Chicken Caesar Salad",
-            "allergens": ["dairy", "egg", "fish"],
-            "isVegetarian": false
-        },
-        {
-            "dishName": "Tomato Basil Soup",
-            "allergens": [],
-            "isVegan": true,
-            "isVegetarian": true
-        }
-    ]
-};
+	var menuContainer = document.querySelector(".menu");
+	$(document).ready(function() {
+	    var payload = {
+	        diningHall: localStorage.getItem("selectedDiningHall")
+	    };
+	
+	    $.ajax({
+	        url: 'FoodServlet',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(payload),
+	        dataType: 'json',
+	        success: function(data) {
+	            var testData = data;
+	            console.log(testData);
+	
+	            // Call function to update the UI with received data
+	            updateMenus(testData);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error occurred: " + error);
+	        }
+	    });
+	
+	    function updateMenus(menuData) {
+	        menuData.forEach(dish => menuContainer.appendChild(createMenuItem(dish)));
+	    }
+	});
+    
 
     function createMenuItem(dish) {
 	    const menuItem = document.createElement('div');
@@ -101,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	    const allergensContainer = document.createElement('div');
 	    allergensContainer.className = 'legend-item';
-	    dish.allergens.forEach(allergen => {
+	    var allergensList = dish.allergens.split(',');
+	    allergensList.forEach(allergen => {
 	        const span = document.createElement('span');
 	        span.className = `allergen-${allergen}`;
 	        allergensContainer.appendChild(span);

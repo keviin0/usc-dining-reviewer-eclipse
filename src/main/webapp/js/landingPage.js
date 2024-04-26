@@ -32,5 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         diningOptionsContainer.appendChild(optionElement);
+        const logoImg = optionElement.querySelector('.dining-hall-logo');
+        logoImg.addEventListener('click', function() {
+            localStorage.setItem('selectedDiningHall', option.name);
+            window.location.href = 'dining-menu.html';
+        });
     });
 });

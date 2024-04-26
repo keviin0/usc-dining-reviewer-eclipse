@@ -23,12 +23,16 @@ public class FoodServlet extends HttpServlet {
 
          Gson gson = new Gson();
          Vector<Dish> dishes = new Vector<Dish>();
-         if(diningHall.equals("McCarthy")) {
+         if(diningHall.equals("USC Village Dining Hall")) {
         	 dishes = Database.mcCarthyDishes();
          } else if(diningHall.equals("Parkside")) {
         	 dishes = Database.parksideDishes();
-         }else {
+         } else {
         	 dishes = Database.evkDishes();
+         }
+         for (Dish dish : dishes)
+         {
+        	 System.out.println(dish.dishName);
          }
          if(dishes.isEmpty()) {
              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
