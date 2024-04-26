@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Login/Signup</title>
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body>
+
+    <div class="banner">
+        <p>Team 7</p>
+        <img src="assets/usclogo.png" alt="USC Logo">
+    </div>
+    <div class="container">
+        <div class="login">
+            <form id="loginForm" class="loginForm">
+                <h2>Login</h2>
+                <label for="email-login">USC Email:</label>
+                <input type="email" name="email-login" id="email-login" onblur="validateEmailLogin()" required/>
+                <p id="email-login-msg"></p>
+                
+                <label for="password-login">Password:</label>
+                <input type="password" name="password-login" id="password-login" required/>
+                <p id="password-login-msg"></p>
+                
+                <input type="submit" value="Submit" id="loginSubmit">
+            </form>
+        </div>
+        <div class="signup">
+            <form id="signupForm" class="signupForm">
+                <h2>Sign Up</h2>
+                <label for="profile-picture">Profile Picture:</label>
+                <input type="file" name="profile-picture" id="profile-picture" accept="image/png,image/jpeg" required/>
+                <p id="profile-picture-msg"></p>
+                
+                <label for="email-signup">USC Email:</label>
+                <input type="email" name="email-signup" id="email-signup" onblur="" required/>
+                <p id="email-signup-msg"></p>
+                
+                <label for="password-signup">Password:</label>
+                <input type="password" name="password-signup" id="password-signup" required/>
+                <p id="password-signup-msg"></p>
+                
+                <label for="password-signup-confirm">Confirm Password:</label>
+                <input type="password" name="password-signup-confirm" id="password-signup-confirm" onblur="validatePassword()" required/>
+                <p id="password-signup-confirm-msg"></p>
+                
+                <input type="submit" value="Submit" id="signupSubmit">
+				<p id="success-msg"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+</html>
