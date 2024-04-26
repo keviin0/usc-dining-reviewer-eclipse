@@ -384,7 +384,7 @@ public class Database {
 		Vector<Review> toReturn = new Vector<Review>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM reviews WHERE dishName = '"+dishName+"'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.reviews WHERE dishName = '"+dishName+"'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Review toAdd = new Review();

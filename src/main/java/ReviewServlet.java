@@ -14,13 +14,13 @@ import com.google.gson.JsonIOException;
 public class ReviewServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	 System.out.println("hit servlet");
     	 PrintWriter pw = response.getWriter();
          response.setContentType("application/json");
          response.setCharacterEncoding("UTF-8");
 
          DiningHall d = new Gson().fromJson(request.getReader(), DiningHall.class);
          String foodName = d.foodName;
+         System.out.println(foodName);
 
          Gson gson = new Gson();
     	 Vector<Review> review = Database.allReviewsOfDish(foodName);

@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const reviewsContainer = document.getElementById('reviewsList');
     const selectedDish = JSON.parse(localStorage.getItem('selectedDish'));
     
-    
-  
     function fetchReviews(dishName) {
 	    $.ajax({
 	        url: 'ReviewServlet',
