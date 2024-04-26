@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const diningOptions = [
-        { name: "Everybody's Kitchen", activityLevel: '63%', waitTime: '20 min.', logo: 'assets/everybodys_kitchen_logo.png' },
+        { name: "Everybody's Kitchen", activityLevel: '20%', waitTime: '20 min.', logo: 'assets/everybodys_kitchen_logo.png' },
         { name: "Parkside", activityLevel: '91%', waitTime: '30 min.', logo: 'assets/parkside_logo.png' },
         { name: "USC Village Dining Hall", activityLevel: '27%', waitTime: '10 min.', logo: 'assets/usc_village_logo.png'}
     ];
