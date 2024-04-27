@@ -1,0 +1,75 @@
+#admin-title {
+    font-size: 44px;
+    text-align: center;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+#removeHeader,
+#addDish-legend{
+    padding: 12px;
+    padding-top: 20px;
+    margin: 0px;
+    background-color: #FFCC00;
+    color:aliceblue;
+    font-size: 30px;
+    height: 51px;
+    text-align: center;
+ 
+}
+
+#removefood-div,
+#foodform-div{
+    margin: 0;
+    margin-left: 167px;
+    width:30%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    text-align: left;
+    font-size: 20px;
+    
+}
+#foodID,
+#removeText,
+.formlabels{
+    font-size: 22px;
+}
+
+#removeinner-div,
+#foodform-innerdiv{
+    padding: 0px;
+    margin: 15px;
+    margin-top: 0px;
+}
+
+#container{
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#submitremove-div,
+#submitadd-div{
+    margin-top: 15px;
+    display:flex;
+    justify-content: center;
+   
+}
+
+#submitremove-div{
+    margin-top: 40px;
+}
+
+#removefood-div{
+    width: 30%;
+    margin-right: 200px;
+    
+}
+
+#admin-tools{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
