@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <link rel="stylesheet" type="text/css" href="css/dining-menu.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <img
+                src="assets/usclogo.png"
+                alt="Navbar-Logo"
+                class="navbar-logo" />
+        </div>
+    </nav>
+	<div class="filter-container">
+	    <button type="button" class="filter-button" id="filterButton">
+	        <img src="assets/filter.png" alt="Filter">
+	    </button>
+	    <div class="filter-options" style="display:none;">
+	        <label><input type="checkbox" value="peanut"> Peanuts</label>
+	        <label><input type="checkbox" value="gluten"> Gluten</label>
+	        <label><input type="checkbox" value="vegetarian"> Vegetarian</label>
+	        <label><input type="checkbox" value="vegan"> Vegan</label>
+	        <label><input type="checkbox" value="halal"> Halal</label>
+	        <label><input type="checkbox" value="egg"> Egg</label>
+	        <label><input type="checkbox" value="wheat"> Wheat</label>
+	        <label><input type="checkbox" value="fish"> Fish</label>
+	        <label><input type="checkbox" value="tree_nuts"> Tree Nuts</label>
+	        <label><input type="checkbox" value="dairy"> Dairy</label>
+	    </div>
+	</div>
+    <h2>Menu</h2>
+    <div class="menu">
+        <!-- Dynamic menu items will be added here -->
+    </div>
+
+    <hr class="divider">
+    <h2>Legend</h2>
+    <div class="legend">
+        <span class="legend-item">
+	        <span class="allergen-peanut"></span> Contains Peanuts
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-gluten"></span> Contains Gluten
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-vegetarian"></span> Vegetarian
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-vegan"></span> Vegan
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-halal"></span> Halal
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-wheat"></span> Contains Wheat
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-tree-nuts"></span> Contains Tree Nuts
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-dairy"></span> Contains Dairy
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-egg"></span> Contains Egg
+	    </span>
+	    <span class="legend-item">
+	        <span class="allergen-fish"></span> Contains Fish
+	    </span>
+    </div>
+
+    <script src="js/dining-menu.js"></script>
+</body>
+</html>
