@@ -281,7 +281,7 @@ public class Database {
 		Vector<Dish> toReturn = new Vector<Dish>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM dishes WHERE diningHall = 'McCarthy'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.dishes WHERE diningHall = 'McCarthy'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Dish toAdd = new Dish();
@@ -316,7 +316,7 @@ public class Database {
 		Vector<Dish> toReturn = new Vector<Dish>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM dishes WHERE diningHall = 'Parkside'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.dishes WHERE diningHall = 'Parkside'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Dish toAdd = new Dish();
@@ -349,7 +349,7 @@ public class Database {
 		Vector<Dish> toReturn = new Vector<Dish>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM dishes WHERE diningHall = 'EVK'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.dishes WHERE diningHall = 'EVK'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Dish toAdd = new Dish();
@@ -384,7 +384,7 @@ public class Database {
 		Vector<Review> toReturn = new Vector<Review>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM reviews WHERE dishName = '"+dishName+"'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.reviews WHERE dishName = '"+dishName+"'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Review toAdd = new Review();

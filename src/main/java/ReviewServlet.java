@@ -20,6 +20,7 @@ public class ReviewServlet extends HttpServlet {
 
          DiningHall d = new Gson().fromJson(request.getReader(), DiningHall.class);
          String foodName = d.foodName;
+         System.out.println(foodName);
 
          Gson gson = new Gson();
     	 Vector<Review> review = Database.allReviewsOfDish(foodName);

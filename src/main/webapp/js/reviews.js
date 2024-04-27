@@ -2,11 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const reviewsContainer = document.getElementById('reviewsList');
     const selectedDish = JSON.parse(localStorage.getItem('selectedDish'));
     
-    
-   	/*
     function fetchReviews(dishName) {
 	    $.ajax({
-	        url: '/ReviewServlet',
+	        url: 'ReviewServlet',
 	        type: 'POST',
 	        contentType: 'application/json',
 	        data: JSON.stringify({ foodName: dishName }),
@@ -23,10 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	        }
 	    });
 	}
-	*/
+	
+	fetchReviews(selectedDish.dishName);
 
+	/*
 	const simulatedResponse = {
-	    success: true,
 	    reviews: [
 	        {
 	            authorUsername: "personA",
@@ -46,7 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	        }
 	    ]
 	};
+	
     displayReviews(simulatedResponse.reviews);
+    */
 
     function displayReviews(reviews) {
         reviewsContainer.innerHTML = '';
