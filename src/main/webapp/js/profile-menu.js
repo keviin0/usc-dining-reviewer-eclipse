@@ -126,7 +126,7 @@ function logout() {
 function login() {
     // Print into console this text to verify login function was called
     window.location.href = "login.html";
-    console.log("logout Initiated!");
+    console.log("login Initiated!");
     logged = true;
 }
 
