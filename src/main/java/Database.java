@@ -443,9 +443,6 @@ public class Database {
 		}
 		
 	}
-<<<<<<< Updated upstream
-
-=======
 	
 	public static int getNumUserAtDiningHall(String dName) {
 		int count = 0;
@@ -463,5 +460,4 @@ public class Database {
 			return -1;
 		}
 	}
->>>>>>> Stashed changes
 }
