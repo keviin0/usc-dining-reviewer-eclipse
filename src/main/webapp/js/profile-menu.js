@@ -8,7 +8,6 @@ var setting = 3;
 // state = 2: location toggle view
 // state = 3: setting toggle view
 
-var logged = false;
 
 document.addEventListener("DOMContentLoaded", function () {
     // ---- ARROW MINIMIZE EXPAND FUNCTION ---------//
@@ -238,6 +237,12 @@ function toggleToNormal() {
     state = norm;
 }
 
+function isLoggedin() {
+    // get the user logged in state here
+    if(localStorage.getItem("username") === null) return false;
+    else return true;
+}
+
 // UNFINISHED NEED TO FINISH TODO <<<<<<<<<<<<<<<<<
 function ChangeCredentials() {
     alert("CHANGING EMAIL AND PASSWORD NOT IMPLEMENTED YET!");
@@ -247,8 +252,4 @@ function ChangeUsername() {
     alert("CHANGING USERNAME NOT IMPLEMENTED YET!");
 }
 
-function isLoggedin() {
-    // get the user logged in state here
 
-    return logged;
-}

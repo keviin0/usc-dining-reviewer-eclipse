@@ -39,3 +39,7 @@ CREATE TABLE reviews(
 INSERT INTO users(username, hashedPassword, profilePictureFileName) VALUES ('username','password', 'filename');
 
 SELECT * FROM users;
+
+ALTER TABLE usersdishes
+ADD isAdmin TINYINT(1) DEFAULT 0;
+
