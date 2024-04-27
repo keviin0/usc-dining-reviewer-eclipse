@@ -81,7 +81,7 @@ public class Database {
 
 		try {
 			statement = conn
-					.prepareStatement("INSERT INTO users(username, hashedPassword, profilePictureFileName) VALUES ('"
+					.prepareStatement("INSERT INTO diningHall.users(username, hashedPassword, profilePictureFileName) VALUES ('"
 							+ username + "', '" + hashedPassword + "', '" + profilePicFilename + "')");
 			statement.execute();
 			return true;
@@ -137,7 +137,7 @@ public class Database {
 			int starRating) {
 		try {
 			statement = conn.prepareStatement(
-					"INSERT INTO reviews(authorUsername, dishName, reviewText, pictureFileName, starRating) VALUES ('"
+					"INSERT INTO diningHall.reviews(authorUsername, dishName, reviewText, pictureFileName, starRating) VALUES ('"
 							+ authorUsername + "', '" + dishName + "', '" + reviewText + "', '" + pictureFilename
 							+ "', '" + starRating + "')");
 			statement.execute();
@@ -197,7 +197,7 @@ public class Database {
 		try {
 
 			statement = conn.prepareStatement(
-					"INSERT INTO dishes(dishName, allergens, isVegan, isVegetarian, diningHall) VALUES ('" + dishName
+					"INSERT INTO diningHall.dishes(dishName, allergens, isVegan, isVegetarian, diningHall) VALUES ('" + dishName
 							+ "', '" + allergens + "', " + String.valueOf(isVegan).toUpperCase() + ", "
 							+ String.valueOf(isVegetarian).toUpperCase() + ", '" + diningHall + "')");
 			statement.execute();
@@ -225,7 +225,7 @@ public class Database {
 
 		try {
 			PreparedStatement statement = conn
-					.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
+					.prepareStatement("SELECT * FROM diningHall.users WHERE username = '" + username + "'");
 			ResultSet set = statement.executeQuery();
 			set.next();
 			User toReturn = new User();
@@ -252,7 +252,7 @@ public class Database {
 		Dish toReturn = new Dish();
 		try {
 			PreparedStatement statement = conn
-					.prepareStatement("SELECT * FROM dishes WHERE dishName = '" + dishname + "'");
+					.prepareStatement("SELECT * FROM diningHall.dishes WHERE dishName = '" + dishname + "'");
 			ResultSet set = statement.executeQuery();
 			set.next();
 			toReturn.dishName = set.getString("dishName");
@@ -433,7 +433,7 @@ public class Database {
 	 */
 	public static boolean updateLocation(String username, String location) {
 		try {
-			statement = conn.prepareStatement("UPDATE users SET location = '"+location+"' WHERE username = '"+username+"'");
+			statement = conn.prepareStatement("UPDATE diningHall.users SET location = '"+location+"' WHERE username = '"+username+"'");
 			statement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -443,5 +443,25 @@ public class Database {
 		}
 		
 	}
+<<<<<<< Updated upstream
 
+=======
+	
+	public static int getNumUserAtDiningHall(String dName) {
+		int count = 0;
+		try {
+			statement = conn.prepareStatement("SELECT COUNT(*) AS user_count FROM diningHall.users WHERE location = ?");
+			statement.setString(1, dName);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+                count = rs.getInt("user_count");
+			}
+			return count;
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+	}
+>>>>>>> Stashed changes
 }

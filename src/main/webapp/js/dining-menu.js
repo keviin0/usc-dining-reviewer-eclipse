@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	            var testData = data;
 	            console.log(testData);
 	
-	            // Call function to update the UI with received data
 	            updateMenus(testData);
 	        },
 	        error: function(xhr, status, error) {
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    ingredientsLink.href = "ingredients.html";
 	    ingredientsLink.textContent = "Ingredients";
 	    const reviewLink = document.createElement('a');
-	    reviewLink.href = "review.html";
+	    reviewLink.href = "reviews.html";
 	    reviewLink.textContent = "Reviews";
 	    reviewLink.addEventListener('click', function(event) {
 	        event.preventDefault();

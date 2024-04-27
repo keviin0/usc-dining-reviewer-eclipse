@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedDish = JSON.parse(localStorage.getItem('selectedDish'));
     
     function fetchReviews(dishName) {
+		console.log(dishName);
 	    $.ajax({
 	        url: 'ReviewServlet',
 	        type: 'POST',
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	            if ($.isArray(data)) {
 	                displayReviews(data);
 	            } else {
-	                $('#reviewsContainer').html('<li>' + data + '</li>'); // Display error or no reviews message
+	                $('#reviewsContainer').html('<li>' + data + '</li>');
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {

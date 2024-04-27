@@ -118,14 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
 // ------- UPDATE SOMETHING EITHER LOCALSTORAGE, A COOKIE, OR URL PARAM TODO <<<<<<<<<
 function logout() {
     // Print into console this text to verify logout function was called
-    alert("Logout is not fully impelemented");
+    window.location.href = "login.html";
     console.log("logout Initiated!");
     logged = false;
 }
 
 function login() {
     // Print into console this text to verify login function was called
-    alert("Login is not fully impelemented");
+    window.location.href = "login.html";
     console.log("logout Initiated!");
     logged = true;
 }
