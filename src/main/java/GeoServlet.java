@@ -9,32 +9,30 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
-@WebServlet("/ReviewServlet")
+@WebServlet("/GeoServlet")
 
-public class ReviewServlet extends HttpServlet {
+public class GeoServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	 PrintWriter pw = response.getWriter();
          response.setContentType("application/json");
          response.setCharacterEncoding("UTF-8");
 
-         DiningHall d = new Gson().fromJson(request.getReader(), DiningHall.class);
-         String foodName = d.foodName;
-         System.out.println(foodName);
-
+         GeoInfo d = new Gson().fromJson(request.getReader(), GeoInfo.class);
+         String dName = d.diningHall;
+         String username = d.username;
          Gson gson = new Gson();
-    	 Vector<Review> review = Database.allReviewsOfDish(foodName);
-         if(review.isEmpty()) {
+    	 Database.updateLocation(username, dName);
+    	 int numPeople = Database.getNumUserAtDiningHall(dName);
+         if(numPeople == -1) {
              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-             String error = "No review for this dish yet";
+             String error = "Error loading amount of people at dining Hall.";
              pw.write(gson.toJson(error));
              pw.flush();
          } else {
              response.setStatus(HttpServletResponse.SC_OK);
-             pw.write(gson.toJson(review));
+             pw.write(gson.toJson(numPeople));
              pw.flush();
          }
     }
 }
-
-

@@ -13,9 +13,15 @@ public class Database {
 	private static ResultSet rs = null;
 
 	static {
-		String url = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3699751";
-		String username = "sql3699751";
-		String password = "FHamzrYmU1";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String url = "jdbc:mysql://mysql-23a733f0-dininghall.h.aivencloud.com:26974/defaultdb?sslmode=require";
+		String username = "avnadmin";
+		String password = "AVNS_IBYe8D9uXr8RmyqfgIj";
 		try {
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
@@ -32,10 +38,6 @@ public class Database {
 	public static void RESET() {
 		try {
 			PreparedStatement statement = conn.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
-			statement.execute();
-			statement = conn.prepareStatement("TRUNCATE TABLE chatroomMessages");
-			statement.execute();
-			statement = conn.prepareStatement("TRUNCATE TABLE directMessages");
 			statement.execute();
 			statement = conn.prepareStatement("TRUNCATE TABLE reviews");
 			statement.execute();
@@ -79,8 +81,8 @@ public class Database {
 
 		try {
 			statement = conn
-					.prepareStatement("INSERT INTO users(username, hashedPassword, profilePictureFileName) VALUES (\""
-							+ username + "\", \"" + hashedPassword + "\", \"" + profilePicFilename + "\")");
+					.prepareStatement("INSERT INTO users(username, hashedPassword, profilePictureFileName) VALUES ('"
+							+ username + "', '" + hashedPassword + "', '" + profilePicFilename + "')");
 			statement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -195,9 +197,9 @@ public class Database {
 		try {
 
 			statement = conn.prepareStatement(
-					"INSERT INTO dishes(dishName, allergens, isVegan, isVegetarian, diningHall) VALUES (\"" + dishName
-							+ "\", \"" + allergens + "\", " + String.valueOf(isVegan).toUpperCase() + ", "
-							+ String.valueOf(isVegetarian).toUpperCase() + ", \"" + diningHall + "\")");
+					"INSERT INTO dishes(dishName, allergens, isVegan, isVegetarian, diningHall) VALUES ('" + dishName
+							+ "', '" + allergens + "', " + String.valueOf(isVegan).toUpperCase() + ", "
+							+ String.valueOf(isVegetarian).toUpperCase() + ", '" + diningHall + "')");
 			statement.execute();
 
 			return true;
@@ -279,7 +281,7 @@ public class Database {
 		Vector<Dish> toReturn = new Vector<Dish>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM dishes WHERE diningHall = 'McCarthy'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.dishes WHERE diningHall = 'McCarthy'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Dish toAdd = new Dish();
@@ -314,7 +316,7 @@ public class Database {
 		Vector<Dish> toReturn = new Vector<Dish>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM dishes WHERE diningHall = 'Parkside'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.dishes WHERE diningHall = 'Parkside'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Dish toAdd = new Dish();
@@ -347,7 +349,7 @@ public class Database {
 		Vector<Dish> toReturn = new Vector<Dish>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM dishes WHERE diningHall = 'EVK'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.dishes WHERE diningHall = 'EVK'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Dish toAdd = new Dish();
@@ -382,7 +384,7 @@ public class Database {
 		Vector<Review> toReturn = new Vector<Review>();
 		try {
 			
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM reviews WHERE dishName = '"+dishName+"'");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.reviews WHERE dishName = '"+dishName+"'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Review toAdd = new Review();
@@ -441,5 +443,21 @@ public class Database {
 		}
 		
 	}
-
+	
+	public static int getNumUserAtDiningHall(String dName) {
+		int count = 0;
+		try {
+			statement = conn.prepareStatement("SELECT COUNT(*) AS user_count FROM users WHERE location = ?");
+			statement.setString(1, dName);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+                count = rs.getInt("user_count");
+			}
+			return count;
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }

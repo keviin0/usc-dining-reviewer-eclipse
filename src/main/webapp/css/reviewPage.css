@@ -7,3 +7,27 @@
 .container {    
 }
 
+.review-item {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.review-author {
+    font-weight: bold;
+}
+
+.review-rating {
+    color: gold;
+    margin-top: 5px;
+}
+
+.review-text {
+    margin-top: 10px;
+}
+
+.review-item img {
+    margin-top: 10px;
+    width: 100%; 
+    border-radius: 5px; 
+}

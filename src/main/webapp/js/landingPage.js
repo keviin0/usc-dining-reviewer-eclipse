@@ -159,7 +159,11 @@ function calculateActivityLevel(numUsers) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const diningOptions = [
+<<<<<<< HEAD
         { name: "EVK", activityLevel: '13%', waitTime: '20 min.', logo: 'assets/everybodys_kitchen_logo.png' },
+=======
+        { name: "Everybody's Kitchen", activityLevel: '20%', waitTime: '20 min.', logo: 'assets/everybodys_kitchen_logo.png' },
+>>>>>>> a095e60c046754a3ec5627ba9bd5f7565a2d37b9
         { name: "Parkside", activityLevel: '91%', waitTime: '30 min.', logo: 'assets/parkside_logo.png' },
         { name: "McCarthy", activityLevel: '27%', waitTime: '10 min.', logo: 'assets/usc_village_logo.png'}
     ];
@@ -196,6 +200,11 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         diningOptionsContainer.appendChild(optionElement);
+        const logoImg = optionElement.querySelector('.dining-hall-logo');
+        logoImg.addEventListener('click', function() {
+            localStorage.setItem('selectedDiningHall', option.name);
+            window.location.href = 'dining-menu.html';
+        });
     });
             
    

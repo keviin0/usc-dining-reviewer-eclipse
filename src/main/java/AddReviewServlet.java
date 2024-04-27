@@ -9,32 +9,29 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
-@WebServlet("/ReviewServlet")
+@WebServlet("/AddReviewServlet")
 
-public class ReviewServlet extends HttpServlet {
+public class AddReviewServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	 PrintWriter pw = response.getWriter();
          response.setContentType("application/json");
          response.setCharacterEncoding("UTF-8");
 
-         DiningHall d = new Gson().fromJson(request.getReader(), DiningHall.class);
-         String foodName = d.foodName;
-         System.out.println(foodName);
+         Review r = new Gson().fromJson(request.getReader(), Review.class);
 
          Gson gson = new Gson();
-    	 Vector<Review> review = Database.allReviewsOfDish(foodName);
-         if(review.isEmpty()) {
+    	 boolean success = Database.addReview(r);
+         if(!success) {
              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-             String error = "No review for this dish yet";
+             String error = "Error adding review.";
              pw.write(gson.toJson(error));
              pw.flush();
          } else {
              response.setStatus(HttpServletResponse.SC_OK);
-             pw.write(gson.toJson(review));
+             String message = "Review successfully added.";
+             pw.write(gson.toJson(message));
              pw.flush();
          }
     }
 }
-
-

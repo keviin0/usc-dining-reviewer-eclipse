@@ -9,32 +9,43 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
-@WebServlet("/ReviewServlet")
+@WebServlet("/FoodServlet")
 
-public class ReviewServlet extends HttpServlet {
+public class FoodServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	 PrintWriter pw = response.getWriter();
          response.setContentType("application/json");
          response.setCharacterEncoding("UTF-8");
 
-         DiningHall d = new Gson().fromJson(request.getReader(), DiningHall.class);
-         String foodName = d.foodName;
-         System.out.println(foodName);
+         DHall d = new Gson().fromJson(request.getReader(), DHall.class);
+         String diningHall = d.diningHall;
 
          Gson gson = new Gson();
-    	 Vector<Review> review = Database.allReviewsOfDish(foodName);
-         if(review.isEmpty()) {
+         Vector<Dish> dishes = new Vector<Dish>();
+         if(diningHall.equals("USC Village Dining Hall")) {
+        	 dishes = Database.mcCarthyDishes();
+         } else if(diningHall.equals("Parkside")) {
+        	 dishes = Database.parksideDishes();
+         } else {
+        	 dishes = Database.evkDishes();
+         }
+         for (Dish dish : dishes)
+         {
+        	 System.out.println(dish.dishName);
+         }
+         if(dishes.isEmpty()) {
              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-             String error = "No review for this dish yet";
+             String error = "Unable to pull dish from this dininHall";
              pw.write(gson.toJson(error));
              pw.flush();
          } else {
              response.setStatus(HttpServletResponse.SC_OK);
-             pw.write(gson.toJson(review));
+             pw.write(gson.toJson(dishes));
              pw.flush();
          }
     }
 }
+
 
 

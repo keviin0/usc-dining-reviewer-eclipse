@@ -26,8 +26,6 @@ body {
     height: 30px;
 }
 
-
-
 .navbar {
     background-color: #990000;
     display: flex;
@@ -70,6 +68,7 @@ body {
 
 .logo-container {
     width: 100%;
+    cursor: pointer;
 }
 
 .status-bar {
