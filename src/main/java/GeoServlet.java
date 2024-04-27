@@ -18,11 +18,12 @@ public class GeoServlet extends HttpServlet {
          response.setContentType("application/json");
          response.setCharacterEncoding("UTF-8");
 
-         DHall d = new Gson().fromJson(request.getReader(), DHall.class);
+         GeoInfo d = new Gson().fromJson(request.getReader(), GeoInfo.class);
          String dName = d.diningHall;
+         String username = d.username;
          Gson gson = new Gson();
-    	 Database.updateDiningHallPop(dName);
-    	 int numPeople = Database.getDiningHallPop(dName);
+    	 Database.updateLocation(username, dName);
+    	 int numPeople = Database.getNumUserAtDiningHall(dName);
          if(numPeople == -1) {
              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
              String error = "Error loading amount of people at dining Hall.";
