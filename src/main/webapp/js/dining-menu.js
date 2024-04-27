@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+	
 	var menuContainer = document.querySelector(".menu");
+	
+	const filterButton = document.querySelector('.filter-button');
+	const filterCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
+	const filterOptions = document.querySelector('.filter-options');
+	filterButton.addEventListener('click', () => {
+        filterOptions.style.display = filterOptions.style.display === 'flex' ? 'none' : 'flex';
+    });
+    
 	$(document).ready(function() {
 	    var payload = {
 	        diningHall: localStorage.getItem("selectedDiningHall")
@@ -102,7 +111,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-
-    menuData.breakfast.forEach(dish => breakfastMenuContainer.appendChild(createMenuItem(dish)));
-    menuData.lunch.forEach(dish => lunchMenuContainer.appendChild(createMenuItem(dish)));
 });
