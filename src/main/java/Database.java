@@ -443,5 +443,21 @@ public class Database {
 		}
 		
 	}
-
+	
+	public static int getNumUserAtDiningHall(String dName) {
+		int count = 0;
+		try {
+			statement = conn.prepareStatement("SELECT COUNT(*) AS user_count FROM users WHERE location = ?");
+			statement.setString(1, dName);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+                count = rs.getInt("user_count");
+			}
+			return count;
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
