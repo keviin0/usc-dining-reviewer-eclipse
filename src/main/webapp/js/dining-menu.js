@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-	
 	var menuContainer = document.querySelector(".menu");
-	
 	const filterButton = document.querySelector('.filter-button');
 	const filterCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
 	const filterOptions = document.querySelector('.filter-options');
-	filterButton.addEventListener('click', () => {
-        filterOptions.style.display = filterOptions.style.display === 'flex' ? 'none' : 'flex';
+	
+	filterButton.addEventListener('click', function() {
+        filterOptions.style.display = filterOptions.style.display === 'block' ? 'none' : 'block';
     });
     
 	$(document).ready(function() {
@@ -24,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	            var testData = data;
 	            console.log(testData);
 	
+	            // Call function to update the UI with received data
 	            updateMenus(testData);
 	        },
 	        error: function(xhr, status, error) {
@@ -58,15 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	    const foodLinks = document.createElement('div');
 	    foodLinks.className = 'food-links';
 	    const ingredientsLink = document.createElement('a');
-	    ingredientsLink.href = "ingredients.html";
+	    const encodedDishName = encodeURIComponent(dish.dishName);
+    	const encodedAllergens = encodeURIComponent(dish.allergens);
+	    /* ingredientsLink.href = "ingredients.html"; */
+	    ingredientsLink.href = `ingredients.html?dishName=${encodedDishName}&allergens=${encodedAllergens}`;
 	    ingredientsLink.textContent = "Ingredients";
 	    const reviewLink = document.createElement('a');
-	    reviewLink.href = "reviews.html";
+	    reviewLink.href = "review.html";
 	    reviewLink.textContent = "Reviews";
 	    reviewLink.addEventListener('click', function(event) {
 	        event.preventDefault();
 	        localStorage.setItem('selectedDish', JSON.stringify(dish));
-	        window.location.href = 'reviews.html';
+	        window.location.href = 'Reviews.html';
 	    });
 	    foodLinks.appendChild(ingredientsLink);
 	    foodLinks.appendChild(document.createTextNode(" | "));
@@ -99,10 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const menuItems = document.querySelectorAll('.menu-item');
 
             menuItems.forEach(function(item) {
-                const itemAllergens = Array.from(item.querySelectorAll('.allergens span'))
-                    .map(span => span.classList[0].split('-')[1]);
+				const foodDetails = item.querySelector('.food-details');
+                /*const itemAllergens = Array.from(item.querySelectorAll('.allergens span'))
+                    .map(span => span.classList[0].split('-')[1]); */
+                    
+                const itemAllergens = Array.from(foodDetails.querySelectorAll('.legend-item span'))
+                .map(span => span.className.split('-')[1]);
 
-                if (selectedAllergens.length === 0 || selectedAllergens.some(allergen => itemAllergens.includes(allergen))) {
+                if (selectedAllergens.length === 0 || selectedAllergens.every(allergen => !itemAllergens.includes(allergen))) {
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
@@ -110,4 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    /* menuData.breakfast.forEach(dish => breakfastMenuContainer.appendChild(createMenuItem(dish)));
+    menuData.lunch.forEach(dish => lunchMenuContainer.appendChild(createMenuItem(dish))); */
 });

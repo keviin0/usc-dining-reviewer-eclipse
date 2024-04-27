@@ -2,24 +2,118 @@
 <head>
     <title>Menu</title>
     <link rel="stylesheet" type="text/css" href="css/ingredients.css">
+    <link rel="stylesheet" href="css/landingPage.css" id="lightCSS"/>
+    <link rel="stylesheet" href="css/landingpageDark.css" id="darkCSS" disabled/>
+    <link rel="stylesheet" href="css/profile-menu.css" />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
+<nav class="navbar">
+            <div class="navbar-content">
+                <img
+                    src="assets/usclogo.png"
+                    alt="Navbar-Logo"
+                    class="navbar-logo" />
+            </div>
+        </nav>
+        <div class="container">
+            <div class="titleBar">
+                <div class="logo">
+                	<a href="index.html">
+                    	<img src="assets/myDiningReview.png" alt="Website Logo" />
+                    </a>
+                </div>
+                <div class="user-info">
+                    <img
+                        src="assets/defaultpfp.png"
+                        alt="User Icon"
+                        class="user-icon-image"
+                        id="minimized-icon" />
+                    <!-- Use the "fa-chevron-down" class for the arrow icon -->
+                    <span class="dropdown-arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                    <!-- The dropdown menu -->
+                    <div class="dropdown-menu">
+                        <div class="expanded-state">
+                            <div class="TitleArea" style="">
+                                <img class="user-pfp" src="assets/defaultpfp.png" >
+                                <div id="expanded-username">username</div>
+                                <div class="arrow"> <i class="fas fa-chevron-up"></i> </div>
+                            </div>
+                            <div class="OptionWrapper">
+                               <!-- displays the "Location" toggle -->
+                                <div class="Option" onClick="locationToggle()" id="location-div">
+                                    <button
+                                        class="LocationToggle"
+                                        onClick="locationToggle()">
+                                        Location
+                                    </button>
+                                </div>
+                                <!-- Rounded LOCATION switch -->
+                                <div id="switch-div">
+                                   <span class="SpanSwitch"> Off/On </span>
+                                    <label class="switch">
+                                        <input type="checkbox" >
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Link to the "Reviews" page -->
+                                <a href="Reviews.html" class="Option" id="reviewsLink">
+                                    <div class="Reviews">Reviews</div>
+                                </a>
+                                
+                                <!-- Toggle to the "Settings" Menu -->
+                                <div onClick="settingsToggle()" class="Option" id="settingsToggle">
+                                    <div class="Settings">Settings</div>
+                                </div>
+                                
+                                
+                                <!--Only displayed if settings button is displayed-->
+                                <div onClick="ChangeUsername()" class="Option_Settings" id="usernameOption">
+                                    <div class="Settings">Username</div>
+                                </div>
+                                <div onClick="ChangeCredentials()" class="Option_Settings" id="credentialsOption">
+                                    <div class="Settings">Email/Password</div>
+                                </div>
+                                <div onClick="" class="Option_Settings Option_Darktoggle" id="darkModeOption">
+                                    <div class="Settings">Dark/Light</div>
+                                    <!-- Rounded switch -->
+                                    <div id="darktoggle-div">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="Logout-div" id="logoutButton">  
+                                <button class="LogOut" onClick="login()">Log IN</button>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
 <h2>Food Title</h2>
 <div class="menu">
     <div class="menu-item">
         <div class="food-image-box"></div>
         <div class="links">
-            <a href="#dining-menu.html">Back</a> | <a href="#reviews.html">Reviews</a>
+            <a href="dining-menu.html">Menu</a> | <a href="Reviews.html">Reviews</a>
         </div>
         <div class="food-details">
             <h3>Ingredients:</h3>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+            <p id="ingredients-text"></p>
         </div>
         <div class="allergens">
             <h3>Allergens:</h3>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            <span class="allergen-peanut"></span>
-            <span class="allergen-gluten"></span>
+            <div id="allergens-container"></div>
         </div>
     </div>
 </div>
@@ -58,5 +152,8 @@
         <span class="allergen-fish"></span> Contains Fish
     </span>
 </div>
+	<script src="js/ingredients.js"></script>
+	<script src="js/profile-menu.js"></script>
+	<script src="js/landingPage.js"></script>
 </body>
 </html>

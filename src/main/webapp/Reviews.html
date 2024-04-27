@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="css/landingPage.css" id="lightCSS"/>
-        <link rel="stylesheet" href="css/landingPageDark.css" id="darkCSS" disabled/>
+        <link rel="stylesheet" href="css/landingpageDark.css" id="darkCSS" disabled/>
         <link rel="stylesheet" href="css/profile-menu.css" />
         <link rel="stylesheet" href="css/reviewPage.css">
         <link
@@ -25,7 +25,9 @@
         <div class="container">
             <div class="titleBar">
                 <div class="logo">
-                    <img src="assets/myDiningReview.png" alt="Website Logo" />
+                    <a href="index.html">
+                    	<img src="assets/myDiningReview.png" alt="Website Logo" />
+                    </a>
                 </div>
                 <div class="user-info">
                     <img
@@ -63,6 +65,11 @@
                                     </label>
                                 </div>
                                 
+                                <!-- Link to the "Reviews" page -->
+                                <a href="Reviews.html" class="Option" id="reviewsLink">
+                                    <div class="Reviews">Reviews</div>
+                                </a>
+                                
                                 <!-- Toggle to the "Settings" Menu -->
                                 <div onClick="settingsToggle()" class="Option" id="settingsToggle">
                                     <div class="Settings">Settings</div>
@@ -95,6 +102,9 @@
                     </div>
                 </div>
             </div>
+            <div class="links">
+            	<a href="dining-menu.html">Menu</a> | <a href="ingredients.html">Ingredients</a>
+        	</div>
             <div class="pagetitle">
             	<div id="reviewsContainer">
 			        <h1>Reviews</h1>
@@ -104,5 +114,7 @@
             </div>
         </div>
         <script src="js/reviews.js"></script>
+        <script src="js/profile-menu.js"></script>
+        <script src="js/landingPage.js"></script>
     </body>
 </html>
