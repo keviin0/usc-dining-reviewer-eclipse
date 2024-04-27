@@ -23,10 +23,6 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("get");
-//		if(Database.getUser(request.getParameter("email")) == null) {
-//			System.out.println("Email not present");
-//		}
 
 	}
 
@@ -42,16 +38,14 @@ public class RegisterServlet extends HttpServlet {
 		//path is "fake path" 
 		if(Database.addUser(u)) {
 			response.setStatus(HttpServletResponse.SC_OK);
-			pw.println(gson.toJson("Success! Proceed to Login"));
+			pw.write(gson.toJson("Success"));
 			pw.flush();
-			pw.close();
 			return;
+		}else {
+			pw.write(gson.toJson("Failure"));
+			pw.flush();
 		}
-		
-		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-		pw.println(gson.toJson("Failure"));
-		pw.flush();
-		pw.close();
+	
 	}
 
 }
