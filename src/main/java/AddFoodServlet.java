@@ -13,7 +13,9 @@ import com.google.gson.JsonIOException;
 
 public class AddFoodServlet extends HttpServlet {
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	 PrintWriter pw = response.getWriter();
          response.setContentType("application/json");
          response.setCharacterEncoding("UTF-8");
@@ -24,6 +26,8 @@ public class AddFoodServlet extends HttpServlet {
          String diningHall = d.dininghall;
          boolean isVegan = d.isVegan;
          boolean isVegetarian = d.isVegetarian;
+         
+         
          Gson gson = new Gson();
     	 boolean success = Database.addDish(dishName, allergens, isVegan, isVegetarian, diningHall);
          if(!success) {
