@@ -48,6 +48,46 @@ function addDish(event){
     });
 }
 
+
+function removeDish(event){
+    event.preventDefault();
+    
+     // Gather form data
+    var formData = {
+        dishName: document.getElementById("remove-name").value,
+        removeReason: document.getElementById("textarea").value
+    };
+    
+    // Print out formData for testing
+    console.log(formData);
+
+    
+    // Send data to RemoveFoodServlet using Fetch API
+    fetch('RemoveFoodServlet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(function(response) {
+        if (!response.ok) {
+            throw new Error('Servlet response was not ok');
+        }
+        return response.json();
+    })
+    .then(function(data) {
+        // Handle success response
+        alert(data);
+    })
+    .catch(function(error) {
+        // Handle error response
+        console.error('Error submitting dish:', error);
+    });
+    
+    
+}
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('foodform').addEventListener('submit', addDish);
+    document.getElementById('removeform').addEventListener('submit', removeDish);
 });
