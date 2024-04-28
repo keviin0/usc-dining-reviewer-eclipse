@@ -5,6 +5,10 @@
     font-family: sans-serif;
 }
 
+body{
+    background-color: #ccc;
+}
+
 #removeHeader,
 #addDish-legend{
     padding: 12px;
@@ -20,6 +24,7 @@
 
 #removefood-div,
 #foodform-div{
+    background: white;
     margin: 0;
     margin-left: 167px;
     width:30%;
@@ -38,6 +43,7 @@
 
 #removeinner-div,
 #foodform-innerdiv{
+    background: white;
     padding: 0px;
     margin: 15px;
     margin-top: 0px;
