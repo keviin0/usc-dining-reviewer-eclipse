@@ -503,4 +503,33 @@ public class Database {
 	    // Return the isAdmin value
 	    return isAdmin;
 	}
+	
+	public static boolean addToDeletedDishes(String dishName, String reason) {
+		try {
+			String sql = "INSERT INTO diningHall.deletedDishes (dishName, reason) VALUES (?, ?)";
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, dishName);
+			statement.setString(2, reason);
+			statement.executeUpdate();
+			return true;
+		}catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public static boolean removeDishFromDishes(String dishName) {
+		String sql = "DELETE FROM diningHall.dishes WHERE dishName = ?";
+		try {
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, dishName);
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 }
