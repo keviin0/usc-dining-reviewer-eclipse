@@ -460,4 +460,47 @@ public class Database {
 			return -1;
 		}
 	}
+	
+	
+	/**
+	 * Check if the username passed in is an admin user
+	 * 
+	 * 
+	 * @param username the username of the user we want to check
+	 * @return 1 if the user is an admin, 0 is not or doesnt exist, -1 if an error occurs,
+	 */
+	public static int isAdmin(String username) {
+	    int isAdmin = 0;
+	    try {
+	        // Prepare the SQL query with a placeholder for the username
+	        String sql = "SELECT isAdmin FROM diningHall.users WHERE username = ?";
+	        PreparedStatement statement = conn.prepareStatement(sql);
+	        
+	        // Set the username parameter
+	        statement.setString(1, username);
+	        
+	        // Execute the query
+	        ResultSet set = statement.executeQuery();
+	        
+	        // Check if any result is returned
+	        if (set.next()) {
+	            // Retrieve the value of isAdmin column
+	            isAdmin = set.getInt("isAdmin");
+	        } else {
+	            // in case case where no user with the given username is found
+	            System.out.println("User not found: " + username);
+	        }
+	        
+	        // Close resources
+	        set.close();
+	        statement.close();
+	    } catch (SQLException e) {
+	        // Log the exception
+	        e.printStackTrace();
+	        // Return -1 to indicate an error
+	        return -1;
+	    }
+	    // Return the isAdmin value
+	    return isAdmin;
+	}
 }

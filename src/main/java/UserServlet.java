@@ -59,6 +59,8 @@ public class UserServlet extends HttpServlet {
 
             // Simulate checking credentials (you would need a real check here)
             User user = Database.getUser(username);
+            int isAdmin = Database.isAdmin(username);
+            
             JsonObject jsonResponse = new JsonObject();
 
             if (user != null && user.hashedPassword.equals(hashedPassword)) {
@@ -67,6 +69,24 @@ public class UserServlet extends HttpServlet {
             } else {
                 jsonResponse.addProperty("status", "Failure");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            }
+            
+            // check whether the user is an admin
+            if(isAdmin == 1) {
+            	// the databse has returned a one indicating the user is an admin
+            	System.out.println("User is an admin");
+            	jsonResponse.addProperty("admin_status", "1");
+
+            } else if(isAdmin == 0) {
+            	// the database has indicated the user is not an admin
+            	System.out.println("User is NOT an admin");
+            	jsonResponse.addProperty("admin_status", "0");
+
+            } else {
+            	// an error occured
+            	System.out.println("An error occured when trying to determine admin status of user");
+            	jsonResponse.addProperty("admin_status", "Failed to determine admin Status");
+            	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
 
             out.print(gson.toJson(jsonResponse));

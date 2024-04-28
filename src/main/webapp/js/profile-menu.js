@@ -102,6 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("settingsToggle").style.display = "flex";
         document.getElementById("logoutButton").innerHTML =
             '<button class="LogOut" onClick="logout()">Log OUT</button>';
+        if(localStorage.getItem("admin") === true){
+            document.getElementById("adminsLink").style.display = "flex";
+
+        }
     } else {
         // User is not logged in, hide specific menu options
         document.getElementById("reviewsLink").style.display = "none";
@@ -111,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("darkModeOption").style.display="flex";
         document.getElementById("logoutButton").innerHTML =
             '<button class="LogOut" onClick="login()">Log IN</button>';
+        document.getElementById("adminsLink").style.display = "none";
     }
 });
 
