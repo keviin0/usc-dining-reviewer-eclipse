@@ -95,50 +95,66 @@ function calculateActivityLevel(numUsers) {
 
 document.addEventListener('DOMContentLoaded', async function() {
     const diningOptions = [
-        { name: "EVK", activityLevel: '13%', waitTime: '20 min', logo: 'assets/everybodys_kitchen_logo.png' },
-        { name: "Parkside", activityLevel: '91%', waitTime: '30 min', logo: 'assets/parkside_logo.png' },
-        { name: "McCarthy", activityLevel: '27%', waitTime: '10 min', logo: 'assets/usc_village_logo.png' }
+        { name: "EVK", logo: 'assets/everybodys_kitchen_logo.png' },
+        { name: "Parkside", logo: 'assets/parkside_logo.png' },
+        { name: "McCarthy", logo: 'assets/usc_village_logo.png' }
     ];
     const diningOptionsContainer = document.getElementById('dining-options');
 
     for (const option of diningOptions) {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        optionElement.dataset.name = option.name;
+        optionElement.innerHTML = `
+            <div class="logo-container">
+                <img class="dining-hall-logo" src="${option.logo}" alt="Dining Hall Logo" />
+            </div>
+            <div class="name">${option.name}</div>
+            <div class="status-bar">
+                <img src="assets/users.png" alt="Users Icon" class="icon" />
+                <div class="bar-background">
+                    <div class="activity-bar" style="width: 0%;"></div>
+                </div>
+                <span class="activity-level">Calculating...</span>
+            </div>
+            <div class="wait-time">
+                <img src="assets/clock.png" alt="Clock Icon" class="icon" />
+                <span class="wait-time-text">Calculating...</span>
+            </div>
+        `;
+        diningOptionsContainer.appendChild(optionElement);
+    }
+
+    for (const option of diningOptions) {
         try {
             const numUsers = await getNumUsers(option.name);
-            console.log("numatDiningHall", option.name, numUsers);
             const activityLevelPercent = calculateActivityLevel(numUsers);
             const waitTime = getWaitTime(numUsers);
 
-            const optionElement = document.createElement('div');
-            optionElement.classList.add('option');
-            optionElement.innerHTML = `
-                <div class="logo-container">
-                    <img class="dining-hall-logo" src="${option.logo}" alt="Dining Hall Logo" />
-                </div>
-                <div class="name">${option.name}</div>
-                <div class="status-bar">
-                    <img src="assets/users.png" alt="Users Icon" class="icon" />
-                    <div class="bar-background">
-                        <div class="activity-bar" style="width: ${activityLevelPercent};"></div>
-                    </div>
-                    <span class="activity-level">${activityLevelPercent}</span>
-                </div>
-                <div class="wait-time">
-                    <img src="assets/clock.png" alt="Clock Icon" class="icon" />
-                    <span class="wait-time-text">${waitTime}</span>
-                </div>
-            `;
-            diningOptionsContainer.appendChild(optionElement);
-            
-            // Add a click event listener to each dining hall logo
-            const logoImg = optionElement.querySelector('.dining-hall-logo');
-            logoImg.addEventListener('click', function() {
-                localStorage.setItem('selectedDiningHall', option.name);
-                window.location.href = 'dining-menu.html'; // Assuming this is the path to your dining menu page
-            });
+            const optionElements = Array.from(diningOptionsContainer.children);
+            const targetElement = optionElements.find(el => el.dataset.name === option.name);
+            if (targetElement) {
+                targetElement.querySelector('.activity-bar').style.width = activityLevelPercent;
+                targetElement.querySelector('.activity-level').innerText = activityLevelPercent;
+                targetElement.querySelector('.wait-time-text').innerText = waitTime;
+
+                const logoImg = targetElement.querySelector('.dining-hall-logo');
+                logoImg.addEventListener('click', function() {
+                    localStorage.setItem('selectedDiningHall', option.name);
+                    window.location.href = 'dining-menu.html';
+                });
+            }
 
         } catch (error) {
             console.error('Failed to get user count for', option.name, 'with error:', error);
+            const optionElements = Array.from(diningOptionsContainer.children);
+            const targetElement = optionElements.find(el => el.dataset.name === option.name);
+            if (targetElement) {
+                targetElement.querySelector('.activity-level').innerText = "Error";
+                targetElement.querySelector('.wait-time-text').innerText = "Error";
+            }
         }
     }
 });
+
 
