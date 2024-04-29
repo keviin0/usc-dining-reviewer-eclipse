@@ -1,3 +1,6 @@
+
+
+
 /* Hide the dropdown menu by default */
 .dropdown-menu {
     display: none;
@@ -28,7 +31,7 @@
 
 /*expanded state*/
 .expanded-state {
-
+    font-family: "Lexend", sans-serif;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
@@ -81,6 +84,7 @@
     display: flex;
 }
 .Option {
+    cursor: pointer;
     text-decoration: none;
     align-self: stretch;
     height: 30;
@@ -99,8 +103,6 @@
     border-radius: 15px;
     opacity: 0.7;
 }
-
-
 
 .Logout-div {
     align-self: stretch;
@@ -133,6 +135,7 @@
 .Reviews,
 .admin,
 .Settings {
+    cursor: pointer;
     text-align: center;
     color: black;
     font-size: 20px;
@@ -152,7 +155,6 @@
     height: 81px;
     border-radius: 9999px;
 }
-
 
 /* The switch - the box around the slider */
 
@@ -238,7 +240,9 @@ input:checked + .slider:before {
 }
 
 /* Settings menu */
-.Option_Settings{
+.Option_Settings {
+    cursor: pointer;
+
     text-decoration: none;
     align-self: stretch;
     height: 30px;
@@ -259,7 +263,7 @@ input:checked + .slider:before {
     opacity: 0.7;
 }
 
-.Option_Darktoggle{
+.Option_Darktoggle {
     justify-content: space-between;
-    flex-direction:row;
+    flex-direction: row;
 }

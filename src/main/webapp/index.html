@@ -2,13 +2,23 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="css/landingPage.css" id="lightCSS"/>
-        <link rel="stylesheet" href="css/landingpageDark.css" id="darkCSS" disabled/>
+        <link rel="stylesheet" href="css/landingPage.css" id="lightCSS" />
+        <link
+            rel="stylesheet"
+            href="css/landingpageDark.css"
+            id="darkCSS"
+            disabled />
         <link rel="stylesheet" href="css/profile-menu.css" />
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/popup.css"/>
         <title>My Dining Review</title>
         <style></style>
     </head>
@@ -24,8 +34,10 @@
         <div class="container">
             <div class="titleBar">
                 <div class="logo">
-                   <a href="index.html">
-                        <img src="assets/myDiningReview.png" alt="Website Logo"/>
+                    <a href="index.html">
+                        <img
+                            src="assets/myDiningReview.png"
+                            alt="Website Logo" />
                     </a>
                 </div>
                 <div class="user-info">
@@ -42,13 +54,20 @@
                     <div class="dropdown-menu">
                         <div class="expanded-state">
                             <div class="TitleArea">
-                                <img class="user-pfp" src="assets/defaultpfp.png" >
+                                <img
+                                    class="user-pfp"
+                                    src="assets/defaultpfp.png" />
                                 <div id="expanded-username">username</div>
-                                <div class="arrow"> <i class="fas fa-chevron-up"></i> </div>
+                                <div class="arrow">
+                                    <i class="fas fa-chevron-up"></i>
+                                </div>
                             </div>
                             <div class="OptionWrapper">
-                               <!-- displays the "Location" toggle -->
-                                <div class="Option" onClick="locationToggle()" id="location-div">
+                                <!-- displays the "Location" toggle -->
+                                <div
+                                    class="Option"
+                                    onClick="locationToggle()"
+                                    id="location-div">
                                     <button
                                         class="LocationToggle"
                                         onClick="locationToggle()">
@@ -57,13 +76,13 @@
                                 </div>
                                 <!-- Rounded LOCATION switch -->
                                 <div id="switch-div">
-                                   <span class="SpanSwitch"> Off/On </span>
+                                    <span class="SpanSwitch"> Off/On </span>
                                     <label class="switch">
-                                        <input type="checkbox" >
+                                        <input type="checkbox" />
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
-                                
+
                                 <!-- Link to the "Reviews" page -->
                                 <a
                                     href="Reviews.html"
@@ -71,40 +90,55 @@
                                     id="reviewsLink">
                                     <div class="Reviews">Reviews</div>
                                 </a>
-                                
-                                 <!-- Link to the "Admin" page -->
+
+                                <!-- Link to the "Admin" page -->
                                 <a
                                     href="admin.html"
                                     class="Option"
                                     id="adminsLink">
                                     <div class="admin">Admin Tools</div>
                                 </a>
-                                
+
                                 <!-- Toggle to the "Settings" Menu -->
-                                <div onClick="settingsToggle()" class="Option" id="settingsToggle">
+
+                                <div
+                                    onClick="settingsToggle()"
+                                    class="Option"
+                                    id="settingsToggle">
                                     <div class="Settings">Settings</div>
                                 </div>
                                 <!--Only displayed if settings button is displayed-->
-                                <div onClick="ChangeUsername()" class="Option_Settings" id="usernameOption">
-                                    <div class="Settings">Username</div>
+                                <div
+                                    onClick="ChangeUsername()"
+                                    class="Option_Settings"
+                                    id="usernameOption">
+                                    <div class="Settings">Email</div>
                                 </div>
-                                <div onClick="ChangeCredentials()" class="Option_Settings" id="credentialsOption">
-                                    <div class="Settings">Email/Password</div>
+                                <div
+                                    onClick="ChangeCredentials()"
+                                    class="Option_Settings"
+                                    id="credentialsOption">
+                                    <div class="Settings">Password</div>
                                 </div>
-                                <div onClick="" class="Option_Settings Option_Darktoggle" id="darkModeOption">
+                                <div
+                                    onClick=""
+                                    class="Option_Settings Option_Darktoggle"
+                                    id="darkModeOption">
                                     <div class="Settings">Dark/Light</div>
                                     <!-- Rounded switch -->
                                     <div id="darktoggle-div">
                                         <label class="switch">
-                                            <input type="checkbox">
+                                            <input type="checkbox" />
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="Logout-div" id="logoutButton">  
-                                <button class="LogOut" onClick="login()">Log IN</button>                              
+
+                            <div class="Logout-div" id="logoutButton">
+                                <button class="LogOut" onClick="login()">
+                                    Log IN
+                                </button>
                             </div>
                         </div>
                     </div>

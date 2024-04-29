@@ -9,10 +9,12 @@
             id="darkCSS"
             disabled />
         <link rel="stylesheet" href="css/profile-menu.css" />
-        <link rel="stylesheet" href="css/admin.css" id="lightCSS" />
+        <link rel="stylesheet" href="css/admin.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+            href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="js/profile-menu.js"></script>
         <script src="js/admin.js"></script>
@@ -30,7 +32,7 @@
         <div class="titleBar">
             <div class="logo">
                 <a href="index.html">
-                    <img src="assets/myDiningReview.png" alt="Website Logo"/>
+                    <img src="assets/myDiningReview.png" alt="Website Logo" />
                 </a>
             </div>
             <div class="user-info">
@@ -81,8 +83,8 @@
                                 id="reviewsLink">
                                 <div class="Reviews">Reviews</div>
                             </a>
-                            
-                              <!--
+
+                            <!--
                               Link to the "Admin" page 
                             <a
                                 href="admin.html"
@@ -105,13 +107,13 @@
                                 onClick="ChangeUsername()"
                                 class="Option_Settings"
                                 id="usernameOption">
-                                <div class="Settings">Username</div>
+                                <div class="Settings">Email</div>
                             </div>
                             <div
                                 onClick="ChangeCredentials()"
                                 class="Option_Settings"
                                 id="credentialsOption">
-                                <div class="Settings">Email/Password</div>
+                                <div class="Settings">Password</div>
                             </div>
                             <div
                                 onClick=""
@@ -147,7 +149,10 @@
                         <div id="foodform-innerdiv">
                             <div id="dishname">
                                 <div class="formlabels">Dish Name:</div>
-                                <input type="text" id="dishname-input" required />
+                                <input
+                                    type="text"
+                                    id="dishname-input"
+                                    required />
                             </div>
                             <br />
                             <label
@@ -221,7 +226,7 @@
                                 </select></label
                             ><br />
                             <div id="submitadd-div">
-                                <input id="submitfood" type="submit"/>
+                                <input id="submitfood" type="submit" />
                             </div>
                         </div>
                     </form>
@@ -230,22 +235,25 @@
                     <div id="removeHeader">Remove Food:</div>
                     <br />
                     <form id="removeform">
-                       <div id="removeinner-div">
-                           <div id="dishname-remove">
-                            Dish Name: <br /><input type="text" id="remove-name" required/>
+                        <div id="removeinner-div">
+                            <div id="dishname-remove">
+                                Dish Name: <br /><input
+                                    type="text"
+                                    id="remove-name"
+                                    required />
                             </div>
                             <br />
                             <div id="removeText">
-                                Reason for Removing:<br>
+                                Reason for Removing:<br />
                                 <textarea
                                     id="textarea"
-                                    name="textarea" required></textarea>
+                                    name="textarea"
+                                    required></textarea>
                             </div>
                             <div id="submitremove-div">
                                 <input id="submitfood" type="submit" />
                             </div>
-                       </div>
-                        
+                        </div>
                     </form>
                 </div>
             </div>

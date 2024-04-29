@@ -2,79 +2,76 @@
     font-size: 44px;
     text-align: center;
     padding: 20px;
-    font-family: sans-serif;
+    font-family: "Lexend", sans-serif;
 }
 
-body{
+body {
     background-color: #ccc;
+    font-family: "Lexend", sans-serif;
 }
 
 #removeHeader,
-#addDish-legend{
+#addDish-legend {
     padding: 12px;
     padding-top: 20px;
     margin: 0px;
-    background-color: #FFCC00;
-    color:aliceblue;
+    background-color: #ffcc00;
+    color: aliceblue;
     font-size: 30px;
     height: 51px;
     text-align: center;
- 
 }
 
 #removefood-div,
-#foodform-div{
+#foodform-div {
     background: white;
     margin: 0;
     margin-left: 167px;
-    width:30%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     border: 1px solid black;
     text-align: left;
     font-size: 20px;
-    
 }
 #dishname-remove,
 #removeText,
-.formlabels{
+.formlabels {
     font-size: 22px;
 }
 
 #removeinner-div,
-#foodform-innerdiv{
+#foodform-innerdiv {
     background: white;
     padding: 0px;
     margin: 15px;
     margin-top: 0px;
 }
 
-#container{
-    font-family: sans-serif;
+#container {
+    font-family: "Lexend", sans-serif;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 
 #submitremove-div,
-#submitadd-div{
+#submitadd-div {
     margin-top: 15px;
-    display:flex;
+    display: flex;
     justify-content: center;
-   
 }
 
-#submitremove-div{
+#submitremove-div {
     margin-top: 40px;
 }
 
-#removefood-div{
+#removefood-div {
     width: 30%;
     margin-right: 200px;
-    
 }
 
-#admin-tools{
+#admin-tools {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;

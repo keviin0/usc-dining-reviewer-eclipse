@@ -7,7 +7,9 @@ var setting = 3;
 // state = 1: normal expanded view
 // state = 2: location toggle view
 // state = 3: setting toggle view
-
+var overlayMade = false;
+var emailPopup = false;
+var passwordPopup = false;
 
 document.addEventListener("DOMContentLoaded", function () {
     // ---- ARROW MINIMIZE EXPAND FUNCTION ---------//
@@ -20,9 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
         //menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         menu.style.display = "flex";
         state = norm;
-
     });
-    
+
     closearrow.addEventListener("click", function () {
         if (state === norm) {
             // the profile mneu is norm state so when close arrow is clicked we should close the menu
@@ -102,9 +103,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("settingsToggle").style.display = "flex";
         document.getElementById("logoutButton").innerHTML =
             '<button class="LogOut" onClick="logout()">Log OUT</button>';
-        if(localStorage.getItem("admin") === true){
+        if (localStorage.getItem("admin") === true) {
             document.getElementById("adminsLink").style.display = "flex";
-
         }
     } else {
         // User is not logged in, hide specific menu options
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("settingsToggle").style.display = "none";
         document.getElementById("usernameOption").style.display = "none";
         document.getElementById("credentialsOption").style.display = "none";
-        document.getElementById("darkModeOption").style.display="flex";
+        document.getElementById("darkModeOption").style.display = "flex";
         document.getElementById("logoutButton").innerHTML =
             '<button class="LogOut" onClick="login()">Log IN</button>';
         document.getElementById("adminsLink").style.display = "none";
@@ -125,14 +125,12 @@ function logout() {
     localStorage.clear();
     window.location.href = "login.html";
     console.log("logout Initiated!");
-    
 }
 
 function login() {
     // Print into console this text to verify login function was called
     window.location.href = "login.html";
     console.log("login Initiated!");
-    
 }
 
 // SWITCH MENU TO LOCATION VIEW
@@ -140,8 +138,8 @@ function locationToggle() {
     state = loc; // LOCATION STATE
 
     // just incase user is not logged in
-    document.getElementById("darkModeOption").style.display="none";
-    
+    document.getElementById("darkModeOption").style.display = "none";
+
     // Get the elements that need to be modified
     var optionWrapper = document.querySelector(".OptionWrapper");
     var titleArea = document.querySelector(".TitleArea");
@@ -209,10 +207,10 @@ function toggleToNormal() {
     var titleArea = document.querySelector(".TitleArea");
     var locationToggleBtn = document.querySelector(".LocationToggle");
     var switchdiv = document.getElementById("switch-div");
-    
+
     // Get all the .Option elements inside .OptionWrapper
     var options = optionWrapper.querySelectorAll(".Option");
-    
+
     if (isLoggedin()) {
         // Loop through each .Option element and show it
         options.forEach(function (option) {
@@ -226,12 +224,12 @@ function toggleToNormal() {
         });
     } else {
         document.getElementById("location-div").style.display = "flex";
-        document.getElementById("darkModeOption").style.display="flex";
+        document.getElementById("darkModeOption").style.display = "flex";
     }
-    
+
     // hide the switch div
     switchdiv.style.display = "none";
-    
+
     // Update the title of the menu back to "username"
     var title = titleArea.querySelector("#expanded-username");
     title.textContent = "username";
@@ -245,17 +243,111 @@ function toggleToNormal() {
 
 function isLoggedin() {
     // get the user logged in state here
-    if(localStorage.getItem("username") === null) return false;
+    if (localStorage.getItem("username") === null) return true;
     else return true;
 }
 
-// UNFINISHED NEED TO FINISH TODO <<<<<<<<<<<<<<<<<
-function ChangeCredentials() {
-    alert("CHANGING EMAIL AND PASSWORD NOT IMPLEMENTED YET!");
-}
-
 function ChangeUsername() {
-    alert("CHANGING USERNAME NOT IMPLEMENTED YET!");
+    
+    // Create overlay element
+    if (overlayMade === false) {
+        var overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+        overlay.setAttribute("id", "overlay");
+
+        // Insert overlay before the container element
+        let container = document.querySelector(".container");
+        container.parentNode.insertBefore(overlay, container);
+        overlayMade = true;
+    } else {
+        // overlay is made just show it
+        var olay = document.getElementById("overlay");
+        olay.style.display = "block"; // Display the overlay
+    }
+    
+    // check if popup exists
+    if(!document.getElementById('emailPopup')){
+        // Create the popup content
+        console.log("creating email popup");
+        var popupContent = 
+        `<div class="popup" id="emailPopup">
+            <div class="popup-content">
+                <span class="close" id="closeButton" onclick="closePopup()"">&times;</span>
+                <p>Change Your Email:</p>
+                <input type="text" class="roundbox" id="changeEmail">
+            </div>
+        </div>`;
+        // Create a new div element
+        var popupContainer = document.createElement("div");
+        // Set the HTML content of the new div element to the popup content
+        popupContainer.innerHTML = popupContent;
+        // Insert the popup before the container element
+        let container = document.querySelector(".container");
+        container.parentNode.insertBefore(popupContainer, container);
+
+    } else {
+        console.log("revealing email popup");
+        var emailpop = document.getElementById("emailPopup");
+        emailpop.style.display = "flex";
+    }
+    
+    
 }
 
+// Function to close the popup
+function closePopup() {
+    overlay.style.display = 'none'; 
+    var popup = document.getElementById('emailPopup');
+    var popup2 = document.getElementById('passPopup');
+    if(popup != null){
+        popup.style.display = 'none';
+    }
+    if(popup2 != null){
+        popup2.style.display = 'none';
+    }
+    
+}
 
+function ChangeCredentials() {
+     // Create overlay element
+    if (!document.getElementById('overlay')) {
+        var overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+        overlay.setAttribute("id", "overlay");
+
+        // Insert overlay before the container element
+        let container = document.querySelector(".container");
+        container.parentNode.insertBefore(overlay, container);
+        overlayMade = true;
+    } else {
+        // overlay is made just show it
+        var olay = document.getElementById("overlay");
+        olay.style.display = "block"; // Display the overlay
+    }
+    
+    // check if popup exists
+    if(!document.getElementById('passPopup')){
+        // Create the popup content
+        console.log("creating pass popup");
+        var popupContent = 
+        `<div class="popup" id="passPopup">
+            <div class="popup-content">
+                <span class="close" id="closeButton2" onclick="closePopup()"">&times;</span>
+                <p>Change Your Password:</p>
+                <input type="text" class="roundbox" id="changePass">
+            </div>
+        </div>`;
+        // Create a new div element
+        var popupContainer = document.createElement("div");
+        // Set the HTML content of the new div element to the popup content
+        popupContainer.innerHTML = popupContent;
+        // Insert the popup before the container element
+        let container = document.querySelector(".container");
+        container.parentNode.insertBefore(popupContainer, container);
+
+    } else {
+        console.log("revealing pass popup");
+        var passpop = document.getElementById("passPopup");
+        passpop.style.display = "flex";
+    }
+}
