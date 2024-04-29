@@ -5,7 +5,7 @@ function toRadians(degrees) {
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
-    const earthRadius = 20902230; // Radius of the Earth in feet
+    const earthRadius = 20902256; // Radius of the Earth in feet
     const lat1Rad = toRadians(lat1);
     const lon1Rad = toRadians(lon1);
     const lat2Rad = toRadians(lat2);
@@ -62,11 +62,11 @@ function getNumUsers(diningHall) {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
                 const diningHalls = {
-                    "EVK": { lat: 34.02283, long: -118.28099 },
-                    "Parkside": { lat: 34.019405, long: -118.28582 },
-                    "McCarthy": { lat: 34.022508, long: -118.283215 }
+                    "EVK": { lat: 34.0213, long: -118.2822 },
+                    "Parkside": { lat: 34.0187, long: -118.2911 },
+                    "McCarthy": { lat: 34.0257, long: -118.2862 }
                 };
-                const around = false;
+                let around = false;
                 const hall = diningHalls[diningHall];
                 if (hall && withinRadius(hall.lat, hall.long, latitude, longitude)) {
 					around = true;

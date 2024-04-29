@@ -37,9 +37,9 @@ public class GeoServlet extends HttpServlet {
          }else {
         	 if(!around) {
         		 String diName = "None";
-        		 Database.updateLocation(username, diName);
+        		 Database.addGuestLocation(guestUser, diName);
         	 }else {
-        		 Database.updateLocation(username, dName);
+        		 Database.addGuestLocation(guestUser, dName);
         	 }
          }
          int numPeople = 0;
