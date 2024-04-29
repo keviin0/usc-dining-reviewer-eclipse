@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS defaultdb;
-CREATE DATABASE defaultdb;
+DROP DATABASE IF EXISTS diningHall;
+CREATE DATABASE diningHall;
 
-USE defaultdb;
+USE diningHall;
 
 
 
@@ -42,4 +42,14 @@ SELECT * FROM users;
 
 ALTER TABLE usersdishes
 ADD isAdmin TINYINT(1) DEFAULT 0;
+
+CREATE TABLE deletedDishes (
+    dishName VARCHAR(255) primary key not null unique,
+    reason VARCHAR(2000)
+)
+
+CREATE TABLE guestLocation (
+    guestID INT UNSIGNED PRIMARY KEY CHECK (guestID BETWEEN 10000000 AND 99999999),
+    location VARCHAR(255)
+);
 

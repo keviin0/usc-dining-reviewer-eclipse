@@ -445,20 +445,39 @@ public class Database {
 	}
 	
 	public static int getNumUserAtDiningHall(String dName) {
-		int count = 0;
-		try {
-			statement = conn.prepareStatement("SELECT COUNT(*) AS user_count FROM diningHall.users WHERE location = ?");
-			statement.setString(1, dName);
-			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
-                count = rs.getInt("user_count");
-			}
-			return count;
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return -1;
-		}
+	    int count = 0;
+	    PreparedStatement stmt1 = null;
+	    PreparedStatement stmt2 = null;
+	    ResultSet rs = null;
+	    ResultSet rsg = null;
+	    try {
+	        stmt1 = conn.prepareStatement("SELECT COUNT(*) AS user_count FROM diningHall.users WHERE location = ?");
+	        stmt1.setString(1, dName);
+	        rs = stmt1.executeQuery();
+	        if (rs.next()) {
+	            count = rs.getInt("user_count");
+	        }
+
+	        stmt2 = conn.prepareStatement("SELECT COUNT(*) AS user_count FROM diningHall.guestLocation WHERE location = ?");
+	        stmt2.setString(1, dName);
+	        rsg = stmt2.executeQuery();
+	        if (rsg.next()) {
+	            count += rsg.getInt("user_count");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return -1;
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (rsg != null) rsg.close();
+	            if (stmt1 != null) stmt1.close();
+	            if (stmt2 != null) stmt2.close();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	    return count;
 	}
 	
 	
@@ -510,8 +529,12 @@ public class Database {
 			statement = conn.prepareStatement(sql);
 			statement.setString(1, dishName);
 			statement.setString(2, reason);
-			statement.executeUpdate();
-			return true;
+			int row = statement.executeUpdate();
+			if(row > 0) {
+				return true;
+			}else {
+				return false;
+			}
 		}catch (SQLException e) {
 	        e.printStackTrace();
 	        return false;
@@ -532,4 +555,34 @@ public class Database {
 		}
 		
 	}
+	
+	public static boolean addGuestLocation(int guestID, String locationName) {
+        String checkSql = "SELECT COUNT(*) FROM diningHall.guestLocation WHERE guestID = ?";
+        
+        String insertSql = "INSERT INTO diningHall.guestLocation (guestID, location) VALUES (?, ?)";
+        String updateSql = "UPDATE diningHall.guestLocation SET location = ? WHERE guestID = ?";
+
+        try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+            checkStmt.setInt(1, guestID);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                    updateStmt.setString(1, locationName);
+                    updateStmt.setInt(2, guestID);
+                    int rowsAffected = updateStmt.executeUpdate();
+                    return rowsAffected > 0;
+                }
+            } else {
+                try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+                    insertStmt.setInt(1, guestID);
+                    insertStmt.setString(2, locationName);
+                    int rowsAffected = insertStmt.executeUpdate();
+                    return rowsAffected > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

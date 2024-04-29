@@ -21,44 +21,68 @@ function withinRadius(lat1, lon1, lat2, lon2, radius = 250) {
     return calculateDistance(lat1, lon1, lat2, lon2) <= radius;
 }
 
-function sendDataToServlet(diningHall) {
-    const formData = { diningHall: diningHall };
-    $.ajax({
-        url: "geoServlet",
-        type: "POST",
-        data: formData,
-        success: function(data) {
-            userCounts[diningHall] = JSON.parse(data);
-            console.log("Data received:", userCounts[diningHall]);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', status, error);
+function sendDataToServlet(diningHall, around) {
+    return new Promise((resolve, reject) => {
+        let username = localStorage.getItem("username");
+        let checker = localStorage.getItem("guestID");
+        if (username === null) {
+            if (checker === null) {
+                username = Math.floor(10000000 + Math.random() * 90000000).toString();
+                localStorage.setItem("guestID", username);
+            } else {
+                username = checker;
+            }
         }
+        const formData = {
+            username: username,
+            diningHall: diningHall,
+            Around: around
+        };
+        $.ajax({
+            url: "GeoServlet",
+            type: "POST",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            success: function(data) {
+                resolve(JSON.parse(data));
+                console.log("Data received:", diningHall, JSON.parse(data));
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', status, error);
+                reject('AJAX error: ' + error);
+            }
+        });
     });
 }
 
 function getNumUsers(diningHall) {
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            const diningHalls = {
-                "EVK": { lat: 34.02283, long: -118.28099 },
-                "Parkside": { lat: 34.019405, long: -118.28582 },
-                "McCarthy": { lat: 34.022508, long: -118.283215 }
-            };
-            const hall = diningHalls[diningHall];
-            if (hall && withinRadius(hall.lat, hall.long, latitude, longitude)) {
-                sendDataToServlet(diningHall);
-            } else {
-                console.log("User is not within the radius of", diningHall);
-            }
-        }, function(error) {
-            console.error("Error getting location:", error.message);
-        });
-    } else {
-        console.error("Geolocation is not supported by this browser.");
-    }
+    return new Promise((resolve, reject) => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                const diningHalls = {
+                    "EVK": { lat: 34.02283, long: -118.28099 },
+                    "Parkside": { lat: 34.019405, long: -118.28582 },
+                    "McCarthy": { lat: 34.022508, long: -118.283215 }
+                };
+                const around = false;
+                const hall = diningHalls[diningHall];
+                if (hall && withinRadius(hall.lat, hall.long, latitude, longitude)) {
+					around = true;
+                    resolve(sendDataToServlet(diningHall, around));
+                } else {
+                    resolve(sendDataToServlet(diningHall, around));
+                }
+            }, function(error) {
+                console.error("Error getting location:", error.message);
+                reject("Geolocation error: " + error.message);
+            });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+            reject("Geolocation not supported");
+        }
+    });
 }
 
 function getWaitTime(numUsers) {
@@ -69,7 +93,7 @@ function calculateActivityLevel(numUsers) {
     return numUsers * 2 + "%";
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     const diningOptions = [
         { name: "EVK", activityLevel: '13%', waitTime: '20 min', logo: 'assets/everybodys_kitchen_logo.png' },
         { name: "Parkside", activityLevel: '91%', waitTime: '30 min', logo: 'assets/parkside_logo.png' },
@@ -77,35 +101,44 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     const diningOptionsContainer = document.getElementById('dining-options');
 
-    diningOptions.forEach(option => {
-        const numUsers = getNumUsers(option.name);
-        const activityLevelPercent = calculateActivityLevel(numUsers);
-        const waitTime = getWaitTime(numUsers);
+    for (const option of diningOptions) {
+        try {
+            const numUsers = await getNumUsers(option.name);
+            console.log("numatDiningHall", option.name, numUsers);
+            const activityLevelPercent = calculateActivityLevel(numUsers);
+            const waitTime = getWaitTime(numUsers);
 
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.innerHTML = `
-            <div class="logo-container">
-                <img class="dining-hall-logo" src="${option.logo}" alt="Dining Hall Logo" />
-            </div>
-            <div class="name">${option.name}</div>
-            <div class="status-bar">
-                <img src="assets/users.png" alt="Timer" class="icon" />
-                <div class="bar-background">
-                    <div class="activity-bar" style="width: ${activityLevelPercent};"></div>
+            const optionElement = document.createElement('div');
+            optionElement.classList.add('option');
+            optionElement.innerHTML = `
+                <div class="logo-container">
+                    <img class="dining-hall-logo" src="${option.logo}" alt="Dining Hall Logo" />
                 </div>
-                <span class="activity-level">${activityLevelPercent}</span>
-            </div>
-            <div class="wait-time">
-                <img src="assets/clock.png" alt="Timer" class="icon" />
-                <span class="wait-time-text">${waitTime}</span>
-            </div>
-        `;
-        diningOptionsContainer.appendChild(optionElement);
-        const logoImg = optionElement.querySelector('.dining-hall-logo');
-        logoImg.addEventListener('click', function() {
-            localStorage.setItem('selectedDiningHall', option.name);
-            window.location.href = 'dining-menu.html';
-        });
-    });
+                <div class="name">${option.name}</div>
+                <div class="status-bar">
+                    <img src="assets/users.png" alt="Users Icon" class="icon" />
+                    <div class="bar-background">
+                        <div class="activity-bar" style="width: ${activityLevelPercent};"></div>
+                    </div>
+                    <span class="activity-level">${activityLevelPercent}</span>
+                </div>
+                <div class="wait-time">
+                    <img src="assets/clock.png" alt="Clock Icon" class="icon" />
+                    <span class="wait-time-text">${waitTime}</span>
+                </div>
+            `;
+            diningOptionsContainer.appendChild(optionElement);
+            
+            // Add a click event listener to each dining hall logo
+            const logoImg = optionElement.querySelector('.dining-hall-logo');
+            logoImg.addEventListener('click', function() {
+                localStorage.setItem('selectedDiningHall', option.name);
+                window.location.href = 'dining-menu.html'; // Assuming this is the path to your dining menu page
+            });
+
+        } catch (error) {
+            console.error('Failed to get user count for', option.name, 'with error:', error);
+        }
+    }
 });
+

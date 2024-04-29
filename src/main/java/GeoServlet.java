@@ -21,9 +21,29 @@ public class GeoServlet extends HttpServlet {
          GeoInfo d = new Gson().fromJson(request.getReader(), GeoInfo.class);
          String dName = d.diningHall;
          String username = d.username;
+         boolean around = d.Around;
+         int guestUser = 0;
+         if(canConvertToEightDigitNumber(username)) {
+        	 guestUser = Integer.parseInt(username);
+         }
          Gson gson = new Gson();
-    	 Database.updateLocation(username, dName);
-    	 int numPeople = Database.getNumUserAtDiningHall(dName);
+         if(guestUser == 0) {
+        	 if(!around) {
+        		 String diName = "None";
+        		 Database.updateLocation(username, diName);
+        	 }else {
+        		 Database.updateLocation(username, dName);
+        	 }
+         }else {
+        	 if(!around) {
+        		 String diName = "None";
+        		 Database.updateLocation(username, diName);
+        	 }else {
+        		 Database.updateLocation(username, dName);
+        	 }
+         }
+         int numPeople = 0;
+         numPeople = Database.getNumUserAtDiningHall(dName);
          if(numPeople == -1) {
              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
              String error = "Error loading amount of people at dining Hall.";
@@ -34,5 +54,17 @@ public class GeoServlet extends HttpServlet {
              pw.write(gson.toJson(numPeople));
              pw.flush();
          }
+    }
+    
+    public static boolean canConvertToEightDigitNumber(String str) {
+        if (str == null || str.length() != 8 || !str.matches("\\d{8}")) {
+            return false; 
+        }
+        try {
+            int number = Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 }
