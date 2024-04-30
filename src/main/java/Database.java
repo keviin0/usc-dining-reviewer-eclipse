@@ -625,4 +625,47 @@ public class Database {
 		}
 		return success;	
 	}
+	
+	
+	public static int updatePass(String pass, String email) {
+		int success = 0;
+        System.out.println("password : " + pass + " email : " + email);
+
+		try {	
+			String checkSQL = "SELECT username FROM diningHall.users WHERE username = ?";
+			// check if the email chosen is unique
+			statement = conn.prepareStatement(checkSQL);
+			statement.setString(1, email);
+			
+			rs = statement.executeQuery();
+			// if user does not exist return 0
+			if(rs.next() == true) {
+				System.out.println("email exists");
+				// if it does exist proceed to updating password
+				String updateSQL = "UPDATE diningHall.users SET hashedPassword = ? WHERE username = ?";
+				statement = conn.prepareStatement(updateSQL);
+	            statement.setString(1, pass);
+				statement.setString(2, email);
+				int rowsUpdated = statement.executeUpdate();
+				System.out.println("rows updated: " + rowsUpdated);
+	            if (rowsUpdated > 0) {
+	                // If the update was successful, return 1
+	                success = 1;
+	            } else {
+	                // If no rows were updated, return -1
+	                success = -1;
+	            }
+			} else {
+				// email exists
+				System.out.println("user does not exist");
+			}
+						
+		} catch(SQLException e) {
+			// if we failed to update return a -1
+			e.printStackTrace();
+			success = -1;
+			
+		}
+		return success;	
+	}
 }

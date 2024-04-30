@@ -86,7 +86,7 @@ public class UserServlet extends HttpServlet {
             	// an error occured
             	System.out.println("An error occured when trying to determine admin status of user");
             	jsonResponse.addProperty("admin_status", "Failed to determine admin Status");
-            	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            	response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
             }
 
             out.print(gson.toJson(jsonResponse));

@@ -307,7 +307,7 @@ function emailChange(event) {
     }
 
     newEmail = encodeURIComponent(newEmail);
-    var oldEmail = encodeURIComponent(localStorage.getItem("username"));
+    var oldEmail = localStorage.getItem("username");
 
     // Serialize data into a URI-encoded string
     var formData = "newEmail=" + newEmail + "&oldEmail=" + oldEmail;
@@ -327,7 +327,7 @@ function emailChange(event) {
         // Fetch request to send form data to the servlet
         var errFlag = 0;
         fetch("changeEmailServlet", options)
-            .then((response) => {  
+            .then((response) => {
                 if (!response.ok) {
                     errFlag = 1;
                 }
@@ -336,13 +336,13 @@ function emailChange(event) {
             .then((data) => {
                 // Handle successful response from servlet
                 console.log("Response from servlet:", data.status);
-                if(errFlag != 1){
-                        alert("email changed!");
-                        closePopup();
+                if (errFlag != 1) {
+                    alert("Email changed!");
+                    localStorage.setItem("username", newEmail);
+                    closePopup();
                 } else {
                     alert(data.status);
                 }
-                
             })
             .catch((error) => {
                 // Handle error
@@ -411,7 +411,7 @@ function ChangeCredentials() {
         container.parentNode.insertBefore(popupContainer, container);
 
         document
-            .getElementById("emailChange-form")
+            .getElementById("passChange-form")
             .addEventListener("submit", passChange);
     } else {
         console.log("revealing pass popup");
@@ -432,6 +432,53 @@ function validateEmail(email) {
 
 function passChange(event) {
     event.preventDefault();
-    alert("Changed Password!");
-    closePopup();
+    // Get the form element
+    var newpass = document.getElementById("changePass").value;
+    newpass = encodeURIComponent(newpass);
+    var email = localStorage.getItem("username");
+
+    // Serialize data into a URI-encoded string
+    var formData ="newPass=" + newpass + "&email=" + email;
+    console.log(formData);
+
+    // Check if form data is not empty
+    if (newpass.length > 0) {
+        // Fetch request options
+        var options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded" // Set the content type to application/x-www-form-urlencoded
+            },
+            body: formData // Pass the serialized form data as the body
+        };
+
+        // Fetch request to send form data to the servlet
+        var errFlag = 0;
+        fetch("changePassServlet", options)
+            .then((response) => {
+                if (!response.ok) {
+                    errFlag = 1;
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Handle successful response from servlet
+                console.log("Response from servlet:", data.status);
+                if (errFlag != 1) {
+                    alert("Password changed!");
+                    closePopup();
+                } else {
+                    alert(data.status);
+                }
+            })
+            .catch((error) => {
+                // Handle error
+                alert(error);
+                console.error("Error sending form data to servlet:", error);
+            });
+    } else {
+        // Handle case where form data is empty
+        console.error("Form data is empty");
+        alert("Form data cannot be empty!");
+    }
 }
