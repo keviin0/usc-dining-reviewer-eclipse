@@ -18,12 +18,40 @@ document.addEventListener('DOMContentLoaded', function() {
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
 	            console.error('Error fetching reviews:', textStatus, errorThrown);
-	            $('#reviewsContainer').html('<li>Error loading reviews.</li>');
+	            $('#reviewsList').html('<li>No reviews for this food.</li>');
 	        }
 	    });
 	}
 	
 	fetchReviews(selectedDish.dishName);
+	
+	$('#reviewForm').submit(function(event) {
+        event.preventDefault();
+
+        var reviewData = {
+            authorUsername: localStorage.getItem("username"),
+            dishName: selectedDish.dishName,
+            reviewText: $('#reviewText').val(),
+            pictureFileName: '',
+            starRating: parseInt($('#starRating').val()),
+            timestamp: new Date().toISOString()
+        };
+
+        $.ajax({
+            url: 'AddReviewServlet',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(reviewData),
+            success: function(response) {
+                alert('Review successfully added');
+                // Optionally, clear the form or handle response further
+                $('#reviewForm')[0].reset();
+            },
+            error: function(xhr, status, error) {
+                alert('Error adding review: ' + xhr.responseText);
+            }
+        });
+    });
 
 	/*
 	const simulatedResponse = {

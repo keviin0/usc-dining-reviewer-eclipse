@@ -1,36 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Menu</title>
-    <link rel="stylesheet" type="text/css" href="css/dining-menu.css" />
-    <link rel="stylesheet" href="css/landingPage.css" id="lightCSS" />
-    <link
-        rel="stylesheet"
-        href="css/landingpageDark.css"
-        id="darkCSS"
-        disabled />
-    <link rel="stylesheet" href="css/profile-menu.css" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet" />
-</head>
-<body>
-    <nav class="navbar">
-        <div class="navbar-content">
-            <img
-                src="assets/usclogo.png"
-                alt="Navbar-Logo"
-                class="navbar-logo" />
-        </div>
-    </nav>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="css/landingPage.css" id="lightCSS"/>
+        <link rel="stylesheet" href="css/landingpageDark.css" id="darkCSS" disabled/>
+        <link rel="stylesheet" href="css/profile-menu.css" />
+        <link rel="stylesheet" href="css/portfolio.css">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Reviews</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <img
+                    src="assets/usclogo.png"
+                    alt="Navbar-Logo"
+                    class="navbar-logo" />
+            </div>
+        </nav>
         <div class="container">
             <div class="titleBar">
                 <div class="logo">
@@ -51,7 +42,7 @@
                     <!-- The dropdown menu -->
                     <div class="dropdown-menu">
                         <div class="expanded-state">
-                            <div class="TitleArea" style="">
+                            <div class="TitleArea">
                                 <img class="user-pfp" src="assets/defaultpfp.png" >
                                 <div id="expanded-username">username</div>
                                 <div class="arrow"> <i class="fas fa-chevron-up"></i> </div>
@@ -79,14 +70,6 @@
                                     <div class="Reviews">Reviews</div>
                                 </a>
                                 
-                                <!-- Link to the "Admin" page -->
-                                <a
-                                    href="admin.html"
-                                    class="Option"
-                                    id="adminsLink">
-                                    <div class="admin">Admin Tools</div>
-                                </a>
-                                
                                 <!-- Toggle to the "Settings" Menu -->
                                 <div onClick="settingsToggle()" class="Option" id="settingsToggle">
                                     <div class="Settings">Settings</div>
@@ -95,10 +78,10 @@
                                 
                                 <!--Only displayed if settings button is displayed-->
                                 <div onClick="ChangeUsername()" class="Option_Settings" id="usernameOption">
-                                    <div class="Settings">Email</div>
+                                    <div class="Settings">Username</div>
                                 </div>
                                 <div onClick="ChangeCredentials()" class="Option_Settings" id="credentialsOption">
-                                    <div class="Settings">Password</div>
+                                    <div class="Settings">Email/Password</div>
                                 </div>
                                 <div onClick="" class="Option_Settings Option_Darktoggle" id="darkModeOption">
                                     <div class="Settings">Dark/Light</div>
@@ -119,66 +102,19 @@
                     </div>
                 </div>
             </div>
+            <div class="links">
+            	<a href="dining-menu.html">Menu</a> | <a href="ingredients.html">Ingredients</a>
+        	</div>
+            <div class="pagetitle">
+            	<div id="reviewsContainer">
+			        <h1>Reviews</h1>
+			        <ul id="reviewsList">
+			        </ul>
+   				</div>
             </div>
-	<div class="filter-container">
-	    <button type="button" class="filter-button" id="filterButton">
-	        <img src="assets/filter.png" alt="Filter">
-	    </button>
-	    <div class="filter-options" style="display:none;">
-	        <label><input type="checkbox" value="peanut"> Peanuts</label>
-	        <label><input type="checkbox" value="gluten"> Gluten</label>
-	        <label><input type="checkbox" value="vegetarian"> Vegetarian</label>
-	        <label><input type="checkbox" value="vegan"> Vegan</label>
-	        <label><input type="checkbox" value="halal"> Halal</label>
-	        <label><input type="checkbox" value="egg"> Egg</label>
-	        <label><input type="checkbox" value="wheat"> Wheat</label>
-	        <label><input type="checkbox" value="fish"> Fish</label>
-	        <label><input type="checkbox" value="tree_nuts"> Tree Nuts</label>
-	        <label><input type="checkbox" value="dairy"> Dairy</label>
-	    </div>
-	</div>
-    <h2>Menu</h2>
-    <div class="menu">
-        <!-- Dynamic menu items will be added here -->
-    </div>
-
-    <hr class="divider">
-    <h2>Legend</h2>
-    <div class="legend">
-        <span class="legend-item">
-	        <span class="allergen-peanut"></span> Contains Peanuts
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-gluten"></span> Contains Gluten
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-vegetarian"></span> Vegetarian
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-vegan"></span> Vegan
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-halal"></span> Halal
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-wheat"></span> Contains Wheat
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-tree-nuts"></span> Contains Tree Nuts
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-dairy"></span> Contains Dairy
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-egg"></span> Contains Egg
-	    </span>
-	    <span class="legend-item">
-	        <span class="allergen-fish"></span> Contains Fish
-	    </span>
-    </div>
-
-    <script src="js/dining-menu.js"></script>
-    <script src="js/landingPage.js"></script>
-    <script src="js/profile-menu.js"></script>
-</body>
+        </div>
+        <script src="js/portfolio.js"></script>
+        <script src="js/profile-menu.js"></script>
+        <script src="js/landingPage.js"></script>
+    </body>
 </html>

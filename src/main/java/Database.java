@@ -144,12 +144,14 @@ public class Database {
 			statement = conn.prepareStatement("SELECT * FROM dishes WHERE dishName = '" + dishName + "'");
 			ResultSet rs = statement.executeQuery();
 			rs.next();
+			/*
 			int totalReviews = Integer.valueOf(rs.getString("totalReviews"));
 			double oldStarRating = Double.valueOf(rs.getString("averageStarRating"));
 			double newStarRating = (oldStarRating * totalReviews + starRating) / (totalReviews + 1);
 			statement = conn.prepareStatement("UPDATE dishes SET totalReviews = " + (totalReviews + 1)
 					+ ", averageStarRating = " + newStarRating + " WHERE dishName = '" + dishName + "'");
 			statement.execute();
+			*/
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -385,6 +387,32 @@ public class Database {
 		try {
 			
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.reviews WHERE dishName = '"+dishName+"'");
+			ResultSet set = statement.executeQuery();
+			while (set.next()) {
+				Review toAdd = new Review();
+				toAdd.authorUsername = set.getString("authorUsername");
+				toAdd.dishName = set.getString("dishName");
+
+				toAdd.reviewText = set.getString("reviewText");
+
+				toAdd.starRating = Integer.valueOf(set.getString("starRating"));
+
+				toAdd.pictureFileName = set.getString("pictureFileName");
+				toAdd.timestamp = set.getString("timePosted");
+				toReturn.add(toAdd);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return toReturn;
+	}
+	
+	public static Vector<Review> allReviewsOfUsername(String username) {
+		Vector<Review> toReturn = new Vector<Review>();
+		try {
+			
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM diningHall.reviews WHERE authorUsername = '"+username+"'");
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
 				Review toAdd = new Review();
