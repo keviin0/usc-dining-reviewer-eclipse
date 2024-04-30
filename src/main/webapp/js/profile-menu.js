@@ -243,12 +243,11 @@ function toggleToNormal() {
 
 function isLoggedin() {
     // get the user logged in state here
-    if (localStorage.getItem("username") === null) return true;
+    if (localStorage.getItem("username") === null) return false;
     else return true;
 }
 
 function ChangeUsername() {
-    
     // Create overlay element
     if (overlayMade === false) {
         var overlay = document.createElement("div");
@@ -264,17 +263,21 @@ function ChangeUsername() {
         var olay = document.getElementById("overlay");
         olay.style.display = "block"; // Display the overlay
     }
-    
+
     // check if popup exists
-    if(!document.getElementById('emailPopup')){
+    if (!document.getElementById("emailPopup")) {
         // Create the popup content
         console.log("creating email popup");
-        var popupContent = 
-        `<div class="popup" id="emailPopup">
+        var popupContent = `<div class="popup" id="emailPopup">
             <div class="popup-content">
                 <span class="close" id="closeButton" onclick="closePopup()"">&times;</span>
                 <p>Change Your Email:</p>
+                <form id="emailChange-form">
                 <input type="text" class="roundbox" id="changeEmail">
+                <div class="submitchange-div">
+                    <input type="submit" id="submitChangeEmail">
+                </div>
+                </form>
             </div>
         </div>`;
         // Create a new div element
@@ -285,32 +288,90 @@ function ChangeUsername() {
         let container = document.querySelector(".container");
         container.parentNode.insertBefore(popupContainer, container);
 
+        document
+            .getElementById("emailChange-form")
+            .addEventListener("submit", emailChange);
     } else {
         console.log("revealing email popup");
         var emailpop = document.getElementById("emailPopup");
         emailpop.style.display = "flex";
     }
-    
-    
+}
+
+function emailChange(event) {
+    event.preventDefault();
+    // Get the form element
+    var newEmail = document.getElementById("changeEmail").value;
+    if (!validateEmail(newEmail)) {
+        return; // if it is not USC.EDU end it here
+    }
+
+    newEmail = encodeURIComponent(newEmail);
+    var oldEmail = encodeURIComponent(localStorage.getItem("username"));
+
+    // Serialize data into a URI-encoded string
+    var formData = "newEmail=" + newEmail + "&oldEmail=" + oldEmail;
+    console.log(formData);
+
+    // Check if form data is not empty
+    if (oldEmail.length > 0 && newEmail.length > 0) {
+        // Fetch request options
+        var options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded" // Set the content type to application/x-www-form-urlencoded
+            },
+            body: formData // Pass the serialized form data as the body
+        };
+
+        // Fetch request to send form data to the servlet
+        var errFlag = 0;
+        fetch("changeEmailServlet", options)
+            .then((response) => {  
+                if (!response.ok) {
+                    errFlag = 1;
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Handle successful response from servlet
+                console.log("Response from servlet:", data.status);
+                if(errFlag != 1){
+                        alert("email changed!");
+                        closePopup();
+                } else {
+                    alert(data.status);
+                }
+                
+            })
+            .catch((error) => {
+                // Handle error
+                alert(error);
+                console.error("Error sending form data to servlet:", error);
+            });
+    } else {
+        // Handle case where form data is empty
+        console.error("Form data is empty");
+        alert("Form data cannot be empty!");
+    }
 }
 
 // Function to close the popup
 function closePopup() {
-    overlay.style.display = 'none'; 
-    var popup = document.getElementById('emailPopup');
-    var popup2 = document.getElementById('passPopup');
-    if(popup != null){
-        popup.style.display = 'none';
+    overlay.style.display = "none";
+    var popup = document.getElementById("emailPopup");
+    var popup2 = document.getElementById("passPopup");
+    if (popup != null) {
+        popup.style.display = "none";
     }
-    if(popup2 != null){
-        popup2.style.display = 'none';
+    if (popup2 != null) {
+        popup2.style.display = "none";
     }
-    
 }
 
 function ChangeCredentials() {
-     // Create overlay element
-    if (!document.getElementById('overlay')) {
+    // Create overlay element
+    if (!document.getElementById("overlay")) {
         var overlay = document.createElement("div");
         overlay.classList.add("overlay");
         overlay.setAttribute("id", "overlay");
@@ -324,17 +385,21 @@ function ChangeCredentials() {
         var olay = document.getElementById("overlay");
         olay.style.display = "block"; // Display the overlay
     }
-    
+
     // check if popup exists
-    if(!document.getElementById('passPopup')){
+    if (!document.getElementById("passPopup")) {
         // Create the popup content
         console.log("creating pass popup");
-        var popupContent = 
-        `<div class="popup" id="passPopup">
+        var popupContent = `<div class="popup" id="passPopup">
+            <form id="passChange-form">
             <div class="popup-content">
                 <span class="close" id="closeButton2" onclick="closePopup()"">&times;</span>
                 <p>Change Your Password:</p>
                 <input type="text" class="roundbox" id="changePass">
+                <div class="submitchange-div">
+                    <input type="submit" id="submitChangePass">
+                </div>
+                </form>
             </div>
         </div>`;
         // Create a new div element
@@ -345,9 +410,28 @@ function ChangeCredentials() {
         let container = document.querySelector(".container");
         container.parentNode.insertBefore(popupContainer, container);
 
+        document
+            .getElementById("emailChange-form")
+            .addEventListener("submit", passChange);
     } else {
         console.log("revealing pass popup");
         var passpop = document.getElementById("passPopup");
         passpop.style.display = "flex";
     }
+}
+
+function validateEmail(email) {
+    const regPat = /^[a-zA-Z0-9]+@usc\.edu$/;
+    if (regPat.test(email)) {
+        return true;
+    } else {
+        alert("Please Enter a Valid USC Email");
+        return false;
+    }
+}
+
+function passChange(event) {
+    event.preventDefault();
+    alert("Changed Password!");
+    closePopup();
 }

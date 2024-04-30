@@ -2,12 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+         <link rel="stylesheet" href="css/popup.css"/>
         <link rel="stylesheet" href="css/landingPage.css" id="lightCSS" />
         <link
             rel="stylesheet"
             href="css/landingpageDark.css"
             id="darkCSS"
             disabled />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="css/profile-menu.css" />
         <link rel="stylesheet" href="css/admin.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,232 +33,249 @@
                     class="navbar-logo" />
             </div>
         </nav>
-        <div class="titleBar">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="assets/myDiningReview.png" alt="Website Logo" />
-                </a>
-            </div>
-            <div class="user-info">
-                <img
-                    src="assets/defaultpfp.png"
-                    alt="User Icon"
-                    class="user-icon-image"
-                    id="minimized-icon" />
-                <!-- Use the "fa-chevron-down" class for the arrow icon -->
-                <span class="dropdown-arrow">
-                    <i class="fas fa-chevron-down"></i>
-                </span>
-                <!-- The dropdown menu -->
-                <div class="dropdown-menu">
-                    <div class="expanded-state">
-                        <div class="TitleArea" style="">
-                            <img class="user-pfp" src="assets/defaultpfp.png" />
-                            <div id="expanded-username">username</div>
-                            <div class="arrow">
-                                <i class="fas fa-chevron-up"></i>
+        <div class="container">
+            <div class="titleBar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img
+                            src="assets/myDiningReview.png"
+                            alt="Website Logo" />
+                    </a>
+                </div>
+                <div class="user-info">
+                    <img
+                        src="assets/defaultpfp.png"
+                        alt="User Icon"
+                        class="user-icon-image"
+                        id="minimized-icon" />
+                    <!-- Use the "fa-chevron-down" class for the arrow icon -->
+                    <span class="dropdown-arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                    <!-- The dropdown menu -->
+                    <div class="dropdown-menu">
+                        <div class="expanded-state">
+                            <div class="TitleArea">
+                                <img
+                                    class="user-pfp"
+                                    src="assets/defaultpfp.png" />
+                                <div id="expanded-username">username</div>
+                                <div class="arrow">
+                                    <i class="fas fa-chevron-up"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="OptionWrapper">
-                            <!-- displays the "Location" toggle -->
-                            <div
-                                class="Option"
-                                onClick="locationToggle()"
-                                id="location-div">
-                                <button
-                                    class="LocationToggle"
-                                    onClick="locationToggle()">
-                                    Location
-                                </button>
-                            </div>
-                            <!-- Rounded LOCATION switch -->
-                            <div id="switch-div">
-                                <span class="SpanSwitch"> Off/On </span>
-                                <label class="switch">
-                                    <input type="checkbox" />
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-
-                            <!-- Link to the "Reviews" page -->
-                            <a
-                                href="Reviews.html"
-                                class="Option"
-                                id="reviewsLink">
-                                <div class="Reviews">Reviews</div>
-                            </a>
-
-                            <!--
-                              Link to the "Admin" page 
-                            <a
-                                href="admin.html"
-                                class="Option"
-                                id="adminsLink">
-                                <div class="admin">Admin Tools</div>
-                            </a>
-                            -->
-
-                            <!-- Toggle to the "Settings" Menu -->
-                            <div
-                                onClick="settingsToggle()"
-                                class="Option"
-                                id="settingsToggle">
-                                <div class="Settings">Settings</div>
-                            </div>
-
-                            <!--Only displayed if settings button is displayed-->
-                            <div
-                                onClick="ChangeUsername()"
-                                class="Option_Settings"
-                                id="usernameOption">
-                                <div class="Settings">Email</div>
-                            </div>
-                            <div
-                                onClick="ChangeCredentials()"
-                                class="Option_Settings"
-                                id="credentialsOption">
-                                <div class="Settings">Password</div>
-                            </div>
-                            <div
-                                onClick=""
-                                class="Option_Settings Option_Darktoggle"
-                                id="darkModeOption">
-                                <div class="Settings">Dark/Light</div>
-                                <!-- Rounded switch -->
-                                <div id="darktoggle-div">
+                            <div class="OptionWrapper">
+                                <!-- displays the "Location" toggle -->
+                                <div
+                                    class="Option"
+                                    onClick="locationToggle()"
+                                    id="location-div">
+                                    <button
+                                        class="LocationToggle"
+                                        onClick="locationToggle()">
+                                        Location
+                                    </button>
+                                </div>
+                                <!-- Rounded LOCATION switch -->
+                                <div id="switch-div">
+                                    <span class="SpanSwitch"> Off/On </span>
                                     <label class="switch">
                                         <input type="checkbox" />
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="Logout-div" id="logoutButton">
-                            <button class="LogOut" onClick="login()">
-                                Log IN
-                            </button>
+                                <!-- Link to the "Reviews" page -->
+                                <a
+                                    href="Reviews.html"
+                                    class="Option"
+                                    id="reviewsLink">
+                                    <div class="Reviews">Reviews</div>
+                                </a>
+
+                                <!-- Link to the "Admin" page -->
+                                <a
+                                    href="admin.html"
+                                    class="Option"
+                                    id="adminsLink">
+                                    <div class="admin">Admin Tools</div>
+                                </a>
+
+                                <!-- Toggle to the "Settings" Menu -->
+
+                                <div
+                                    onClick="settingsToggle()"
+                                    class="Option"
+                                    id="settingsToggle">
+                                    <div class="Settings">Settings</div>
+                                </div>
+                                <!--Only displayed if settings button is displayed-->
+                                <div
+                                    onClick="ChangeUsername()"
+                                    class="Option_Settings"
+                                    id="usernameOption">
+                                    <div class="Settings">Email</div>
+                                </div>
+                                <div
+                                    onClick="ChangeCredentials()"
+                                    class="Option_Settings"
+                                    id="credentialsOption">
+                                    <div class="Settings">Password</div>
+                                </div>
+                                <div
+                                    onClick=""
+                                    class="Option_Settings Option_Darktoggle"
+                                    id="darkModeOption">
+                                    <div class="Settings">Dark/Light</div>
+                                    <!-- Rounded switch -->
+                                    <div id="darktoggle-div">
+                                        <label class="switch">
+                                            <input type="checkbox" />
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="Logout-div" id="logoutButton">
+                                <button class="LogOut" onClick="login()">
+                                    Log IN
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="admin-title">Admin Tools</div>
-        <div id="container">
-            <div id="admin-tools">
-                <div id="foodform-div">
-                    <div id="addDish-legend">Add Dish:</div>
-                    <br />
-                    <form id="foodform">
-                        <div id="foodform-innerdiv">
-                            <div id="dishname">
-                                <div class="formlabels">Dish Name:</div>
-                                <input
-                                    type="text"
-                                    id="dishname-input"
-                                    required />
+            <div class="inner-container">
+                <div id="admin-tools">
+                    <div id="foodform-div">
+                        <div id="addDish-legend">Add Dish:</div>
+                        <br />
+                        <form id="foodform">
+                            <div id="foodform-innerdiv">
+                                <div id="dishname">
+                                    <div class="formlabels">Dish Name:</div>
+                                    <input
+                                        type="text"
+                                        id="dishname-input"
+                                        required />
+                                </div>
+                                <br />
+                                <label
+                                    ><div class="formlabels">
+                                        Dish Allergens:
+                                    </div>
+                                    <div id="allergen-div">
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="peanut" />
+                                            Peanuts</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="gluten" />
+                                            Gluten</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="vegetarian" />
+                                            Vegetarian</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="vegan" />
+                                            Vegan</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="halal" />
+                                            Halal</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="egg" />
+                                            Egg</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="wheat" />
+                                            Wheat</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="fish" />
+                                            Fish</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="tree_nuts" />
+                                            Tree Nuts</label
+                                        >
+                                        <label
+                                            ><input
+                                                type="checkbox"
+                                                value="dairy" />
+                                            Dairy</label
+                                        >
+                                    </div></label
+                                ><br />
+                                <label
+                                    ><div class="formlabels">Dining hall</div>
+                                    <select name="select" id="select" required>
+                                        <option value="" disabled selected>
+                                            Select your option
+                                        </option>
+                                        <option value="EVK">
+                                            Everybody's Kitchen
+                                        </option>
+                                        <option value="McCarthy">
+                                            USC Village Dining Hall
+                                        </option>
+                                        <option value="Parkside">
+                                            Parkside Restaurant & Grill
+                                        </option>
+                                    </select></label
+                                ><br />
+                                <div id="submitadd-div">
+                                    <input id="submitfood" type="submit" />
+                                </div>
                             </div>
-                            <br />
-                            <label
-                                ><div class="formlabels">Dish Allergens:</div>
-                                <div id="allergen-div">
-                                    <label
-                                        ><input
-                                            type="checkbox"
-                                            value="peanut" />
-                                        Peanuts</label
-                                    >
-                                    <label
-                                        ><input
-                                            type="checkbox"
-                                            value="gluten" />
-                                        Gluten</label
-                                    >
-                                    <label
-                                        ><input
-                                            type="checkbox"
-                                            value="vegetarian" />
-                                        Vegetarian</label
-                                    >
-                                    <label
-                                        ><input type="checkbox" value="vegan" />
-                                        Vegan</label
-                                    >
-                                    <label
-                                        ><input type="checkbox" value="halal" />
-                                        Halal</label
-                                    >
-                                    <label
-                                        ><input type="checkbox" value="egg" />
-                                        Egg</label
-                                    >
-                                    <label
-                                        ><input type="checkbox" value="wheat" />
-                                        Wheat</label
-                                    >
-                                    <label
-                                        ><input type="checkbox" value="fish" />
-                                        Fish</label
-                                    >
-                                    <label
-                                        ><input
-                                            type="checkbox"
-                                            value="tree_nuts" />
-                                        Tree Nuts</label
-                                    >
-                                    <label
-                                        ><input type="checkbox" value="dairy" />
-                                        Dairy</label
-                                    >
-                                </div></label
-                            ><br />
-                            <label
-                                ><div class="formlabels">Dining hall</div>
-                                <select name="select" id="select" required>
-                                    <option value="" disabled selected>
-                                        Select your option
-                                    </option>
-                                    <option value="EVK">
-                                        Everybody's Kitchen
-                                    </option>
-                                    <option value="McCarthy">
-                                        USC Village Dining Hall
-                                    </option>
-                                    <option value="Parkside">
-                                        Parkside Restaurant & Grill
-                                    </option>
-                                </select></label
-                            ><br />
-                            <div id="submitadd-div">
-                                <input id="submitfood" type="submit" />
+                        </form>
+                    </div>
+                    <div id="removefood-div">
+                        <div id="removeHeader">Remove Food:</div>
+                        <br />
+                        <form id="removeform">
+                            <div id="removeinner-div">
+                                <div id="dishname-remove">
+                                    Dish Name: <br /><input
+                                        type="text"
+                                        id="remove-name"
+                                        required />
+                                </div>
+                                <br />
+                                <div id="removeText">
+                                    Reason for Removing:<br />
+                                    <textarea
+                                        id="textarea"
+                                        name="textarea"
+                                        required></textarea>
+                                </div>
+                                <div id="submitremove-div">
+                                    <input id="submitfood" type="submit" />
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div id="removefood-div">
-                    <div id="removeHeader">Remove Food:</div>
-                    <br />
-                    <form id="removeform">
-                        <div id="removeinner-div">
-                            <div id="dishname-remove">
-                                Dish Name: <br /><input
-                                    type="text"
-                                    id="remove-name"
-                                    required />
-                            </div>
-                            <br />
-                            <div id="removeText">
-                                Reason for Removing:<br />
-                                <textarea
-                                    id="textarea"
-                                    name="textarea"
-                                    required></textarea>
-                            </div>
-                            <div id="submitremove-div">
-                                <input id="submitfood" type="submit" />
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

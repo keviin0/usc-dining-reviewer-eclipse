@@ -47,3 +47,10 @@
     height: 24px;
     width: 105%;
 }
+
+.submitchange-div{
+    padding: 10px;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}

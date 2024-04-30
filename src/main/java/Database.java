@@ -585,4 +585,44 @@ public class Database {
             return false;
         }
     }
+
+	public static int updateEmail(String newEmail, String oldEmail) {
+		int success = 0;
+        System.out.println("oldEmail : " + oldEmail + " newEmail : " + newEmail);
+
+		try {	
+			String checkSQL = "SELECT username FROM diningHall.users WHERE username = ?";
+			// check if the email chosen is unique
+			statement = conn.prepareStatement(checkSQL);
+			statement.setString(1, newEmail);
+			
+			rs = statement.executeQuery();
+			// if it is not unique return a 0
+			if(!rs.next()) {
+				System.out.println("unique email attempting to change");
+				// if it is unique proceed to updating the old Email to the new email
+				String updateSQL = "UPDATE diningHall.users SET username = ? WHERE username = ?";
+				statement = conn.prepareStatement(updateSQL);
+	            statement.setString(1, newEmail);
+				statement.setString(2, oldEmail);
+				int rowsUpdated = statement.executeUpdate();
+	            if (rowsUpdated > 0) {
+	                // If the update was successful, return 1
+	                success = 1;
+	            } else {
+	                // If no rows were updated, return -1
+	                success = -1;
+	            }
+			} else {
+				// email exists
+				System.out.println("not a unique email");
+			}
+						
+		} catch(SQLException e) {
+			// if we failed to update return a -1
+			success = -1;
+			
+		}
+		return success;	
+	}
 }
