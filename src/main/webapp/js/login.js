@@ -57,6 +57,7 @@ function registerUser() {
         contentType: "application/json",
         success: function (response) {
             if (response.status === "Success") {
+				localStorage.setItem("username", data.username);
                 document.getElementById("success-msg").innerHTML = "Success!";
                 document.getElementById("success-msg").style.display = "block";
                 window.location.href = "index.html";
