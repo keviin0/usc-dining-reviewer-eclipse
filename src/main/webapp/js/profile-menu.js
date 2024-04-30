@@ -74,8 +74,28 @@ document.addEventListener("DOMContentLoaded", function () {
         // Set the checkbox state to checked
         darkModeToggle.checked = true;
         // Change the CSS link to landingpageDark.css
-        document.getElementById("darkCSS").disabled = false;
         document.getElementById("lightCSS").disabled = true;
+        document.getElementById("lightCSS2").disabled = true;
+
+        document.getElementById("darkCSS").disabled = false;
+        document.getElementById("darkCSS2").disabled = false;
+
+        // select all usericons
+        let usericons = document.querySelectorAll(".usericon");
+        // Loop through each usericon element
+        usericons.forEach(function (usericon) {
+            // Update the src attribute of each usericon element
+            console.log("replacing image");
+            usericon.src = "assets/users_dark.jpg"; //
+        });
+
+        let clockicons = document.querySelectorAll(".clockicon");
+        // Loop through each usericon element
+        clockicons.forEach(function (clockicon) {
+            // Update the src attribute of each usericon element
+            console.log("replacing image");
+            clockicon.src = "assets/clock_dark.jpg"; //
+        });
     }
     // Add event listener for the toggle change
     darkModeToggle.addEventListener("change", function () {
@@ -84,15 +104,55 @@ document.addEventListener("DOMContentLoaded", function () {
             // Store dark mode state in localStorage
             localStorage.setItem("darkMode", "enabled");
             // Change the CSS link to landingPageDark.css
-            document.getElementById("darkCSS").disabled = false;
+            // Change the CSS link to landingpageDark.css
             document.getElementById("lightCSS").disabled = true;
+            document.getElementById("lightCSS2").disabled = true;
+
+            document.getElementById("darkCSS").disabled = false;
+            document.getElementById("darkCSS2").disabled = false;
+
+            // select all usericons
+            let usericons = document.querySelectorAll(".usericon");
+            // Loop through each usericon element
+            usericons.forEach(function (usericon) {
+                // Update the src attribute of each usericon element
+                console.log("replacing image");
+                usericon.src = "assets/users_dark.jpg"; //
+            });
+
+            let clockicons = document.querySelectorAll(".clockicon");
+            // Loop through each usericon element
+            clockicons.forEach(function (clockicon) {
+                // Update the src attribute of each usericon element
+                console.log("replacing image");
+                clockicon.src = "assets/clock_dark.jpg"; //
+            });
         } else {
             // Dark mode disabled
             // Remove dark mode state from localStorage
             localStorage.removeItem("darkMode");
-            // Change the CSS link to landingPage.css
-            document.getElementById("darkCSS").disabled = true;
+            // Change the CSS link to landingpageDark.css
             document.getElementById("lightCSS").disabled = false;
+            document.getElementById("lightCSS2").disabled = false;
+
+            document.getElementById("darkCSS").disabled = true;
+            document.getElementById("darkCSS2").disabled = true;
+
+            // select all usericons
+            let usericons = document.querySelectorAll(".usericon");
+            // Loop through each usericon element
+            usericons.forEach(function (usericon) {
+                // Update the src attribute of each usericon element
+                usericon.src = "assets/users.png"; // Replace 'new_image_path.png' with the path of the new image
+            });
+
+            let clockicons = document.querySelectorAll(".clockicon");
+            // Loop through each usericon element
+            clockicons.forEach(function (clockicon) {
+                // Update the src attribute of each usericon element
+                console.log("replacing image");
+                clockicon.src = "assets/clock.png"; //
+            });
         }
     });
 
@@ -438,7 +498,7 @@ function passChange(event) {
     var email = localStorage.getItem("username");
 
     // Serialize data into a URI-encoded string
-    var formData ="newPass=" + newpass + "&email=" + email;
+    var formData = "newPass=" + newpass + "&email=" + email;
     console.log(formData);
 
     // Check if form data is not empty

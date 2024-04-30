@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         { name: "McCarthy", logo: 'assets/usc_village_logo.png' }
     ];
     const diningOptionsContainer = document.getElementById('dining-options');
-
+    var usericons = (localStorage.getItem("darkMode")) ? "users_dark.jpg" : "users.png";  
     for (const option of diningOptions) {
         const optionElement = document.createElement('div');
         optionElement.classList.add('option');
@@ -111,14 +111,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
             <div class="name">${option.name}</div>
             <div class="status-bar">
-                <img src="assets/users.png" alt="Users Icon" class="icon" />
+                <img src="assets/${usericons}" alt="Users Icon" class="icon usericon" />
                 <div class="bar-background">
                     <div class="activity-bar" style="width: 0%;"></div>
                 </div>
                 <span class="activity-level">Calculating...</span>
             </div>
             <div class="wait-time">
-                <img src="assets/clock.png" alt="Clock Icon" class="icon" />
+                <img src="assets/clock.png" alt="Clock Icon" class="icon clockicon" />
                 <span class="wait-time-text">Calculating...</span>
             </div>
         `;

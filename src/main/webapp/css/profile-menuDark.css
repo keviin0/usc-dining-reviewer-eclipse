@@ -1,0 +1,271 @@
+
+
+
+/* Hide the dropdown menu by default */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+
+    min-width: 278px;
+    box-shadow: 0 8px 16px 0 rgba(48, 48, 48, 0.2);
+    z-index: 2;
+    top: 97px;
+    right: 1px;
+}
+
+/*minimized state*/
+.user-info {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+.user-icon-image {
+    height: 3rem;
+}
+.dropdown-arrow {
+    margin-left: 0.5rem;
+    width: 19px;
+    height: 9px;
+    color: black;
+}
+
+/*expanded state*/
+.expanded-state {
+    font-family: "Lexend", sans-serif;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 25px;
+    background: #111111;
+    box-shadow: 0px 40px 85px rgba(81, 81, 81, 0.25);
+    border-radius: 20px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+}
+#expanded-username {
+    width: 200px;
+    height: 35px;
+    color: #ffffff;
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: 700;
+    line-height: 42px;
+    word-wrap: break-word;
+}
+.arrow {
+    width: 19px;
+    height: 9px;
+    transform-origin: 0 0;
+    color: white;
+}
+.TitleArea {
+    align-self: stretch;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #111111;
+    border-radius: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    display: inline-flex;
+}
+.OptionWrapper {
+    align-self: stretch;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+}
+.Option {
+
+    cursor: pointer;
+    text-decoration: none;
+    align-self: stretch;
+    height: 30;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px rgba(255, 255, 255, 0.15) solid;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5px;
+    display: flex;
+}
+.Option:hover {
+    background-color: #c0c0c0; /* Gray background color */
+    padding-left: 5px;
+    border-radius: 15px;
+    opacity: 0.7;
+}
+
+.Logout-div {
+    
+    align-self: stretch;
+    color: aqua;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+}
+.LogOut {
+    background: rgba(0, 0, 0, 0);
+    border: 0px;
+    text-align: center;
+    color: #FFCC00;
+    font-size: 14px;
+    font-family: Inter;
+    font-weight: 800;
+    text-decoration: underline;
+    text-transform: uppercase;
+    line-height: 19.6px;
+    word-wrap: break-word;
+}
+
+.LogOut:hover {
+    background-color: #c0c0c0; /* Gray background color */
+    border-radius: 20px;
+}
+.LocationToggle,
+.Reviews,
+.admin,
+.Settings {
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 600;
+    line-height: 28px;
+    word-wrap: break-word;
+}
+
+.LocationToggle {
+    padding-left: 0px; /* align toggle text with the rest of the options*/
+    background: rgba(255, 255, 255, 0);
+    border: 0px;
+}
+.user-pfp {
+    width: 81px;
+    height: 81px;
+    border-radius: 9999px;
+}
+
+/* The switch - the box around the slider */
+
+#switch-div {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: black;
+}
+
+.SpanSwitch {
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 600;
+    line-height: 28px;
+    word-wrap: break-word;
+    margin-right: auto; /* Pushes the text to the left */
+}
+
+/* CSS template below from w3schools.com */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 36px;
+    width: 36px;
+    left: 0px;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    bottom: -1px;
+    background-color: #ffffff;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Settings menu */
+.Option_Settings {
+    cursor: pointer;
+
+    text-decoration: none;
+    align-self: stretch;
+    height: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px rgba(255, 255, 255, 0.15) solid;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5px;
+    display: none;
+}
+
+.Option_Settings:hover {
+    background-color: #c0c0c0; /* Gray background color */
+    padding-left: 5px;
+    border-radius: 15px;
+    opacity: 0.7;
+}
+
+.Option_Darktoggle {
+    justify-content: space-between;
+    flex-direction: row;
+}
