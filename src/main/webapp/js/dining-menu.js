@@ -35,8 +35,38 @@ document.addEventListener('DOMContentLoaded', function() {
 	        menuData.forEach(dish => menuContainer.appendChild(createMenuItem(dish)));
 	    }
 	});
-    
 
+    function getImg(dishname, image) {
+        let data = new URLSearchParams();
+        data.append("dishname", dishname);
+
+        fetch("GetFoodImgServlet", {
+            method: "POST",
+            body: data
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    console.error("Failed to retrieve image.");
+                    throw new Error("Failed to retrieve image.");
+                }
+            })
+            .then((blob) => {
+                const blobUrl = URL.createObjectURL(blob);
+                image.src = blobUrl;
+
+            })
+            .catch((error) => {
+                console.error("Error retrieving image:", error);
+                const fallbackImageUrl =
+                    "https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg";
+                image.src = fallbackImageUrl;
+
+            });
+
+    }
+        
     function createMenuItem(dish) {
 	    const menuItem = document.createElement('div');
 	    menuItem.className = 'menu-item';
@@ -44,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	    const foodImageBox = document.createElement('div');
 	    foodImageBox.className = 'food-image-box';
 	    const image = document.createElement('img');
-	    image.src = 'https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg';  // Placeholder image URL
-	    image.alt = 'Placeholder Image';
+	    getImg(dish.dishName, image);
+        image.alt = `${dish.dishName} image`;
 	    foodImageBox.appendChild(image);
 	
 	    const foodDetails = document.createElement('div');

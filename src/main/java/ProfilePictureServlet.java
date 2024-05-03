@@ -26,7 +26,7 @@ public class ProfilePictureServlet extends HttpServlet {
         	byte[] pfpBytes = user.pfp;
 
             // Set the response headers for image data
-            response.setContentType("image/jpeg"); // Adjust the MIME type if needed
+            response.setContentType("image/jpeg");
             response.setContentLength(pfpBytes.length);
             response.setStatus(HttpServletResponse.SC_OK);
             // Write the image data to the response

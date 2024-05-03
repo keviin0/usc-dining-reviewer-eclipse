@@ -3,6 +3,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 @WebServlet("/AddFoodImgServlet")
+@MultipartConfig
+
 public class AddFoodImgServlet extends HttpServlet{
 	/**
 	 * 

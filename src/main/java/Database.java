@@ -316,7 +316,30 @@ public class Database {
 
 	}
 	
-	
+	public static byte[] getDishImg(String dishname) {
+	    byte[] dishImg;
+	    try {
+	        PreparedStatement statement = conn.prepareStatement("SELECT img FROM diningHall.dishes WHERE dishName = ?");
+	        statement.setString(1, dishname);
+	        ResultSet set = statement.executeQuery();
+	        if (set.next()) {
+	            java.sql.Blob imgBlob = set.getBlob("img");
+	            if (imgBlob != null) {
+	                System.out.println("got img data for dish");
+	                dishImg = imgBlob.getBytes(1, (int) imgBlob.length());
+	                return dishImg;
+	            }
+	        } else {
+	            // No rows found for the specified dish name
+	            System.out.println("No image found for dish: " + dishname);
+	            return null;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	    return null;
+	}
 
 	/**
 	 * Gets the Dish object from the name of the dish
@@ -770,4 +793,6 @@ public class Database {
 		}
 		return success;	
 	}
+
+
 }
