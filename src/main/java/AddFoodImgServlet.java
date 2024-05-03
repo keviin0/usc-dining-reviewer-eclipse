@@ -3,7 +3,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,25 +12,24 @@ import javax.servlet.http.Part;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-@WebServlet("/AddUserImg")
-@MultipartConfig
-public class AddUserImg extends HttpServlet {
+@WebServlet("/AddFoodImgServlet")
+public class AddFoodImgServlet extends HttpServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -836392079301222388L;
+	private Gson gson = new Gson();
 
-    private static final long serialVersionUID = 1L;
-    private Gson gson = new Gson();
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		
+		String dishName = request.getParameter("dishName");
+        Part img = request.getPart("img"); // Get the Part containing the image data
         
-        String username = request.getParameter("username"); // Assuming you also pass the username along with the image
-        Part profilePicPart = request.getPart("profilePic"); // Get the Part containing the image data
-        
-        try (InputStream inputStream = profilePicPart.getInputStream()) {
+        try (InputStream inputStream = img.getInputStream()) {
             // Get database connection (replace getConnection() with your actual database connection method)
-        	boolean status = Database.addUserImg(inputStream, username);
+        	boolean status = Database.addFoodImg(inputStream, dishName);
         	JsonObject jsonResponse = new JsonObject();
         	if (status) {
                 jsonResponse.addProperty("status", "Success");
@@ -48,5 +46,5 @@ public class AddUserImg extends HttpServlet {
         } finally {
             out.flush();
         }
-    }
+	}
 }

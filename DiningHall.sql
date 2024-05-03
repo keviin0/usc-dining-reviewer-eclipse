@@ -23,6 +23,7 @@ CREATE TABLE dishes(
     averageStarRating float DEFAULT 0,
     totalReviews int DEFAULT 0,
     img LONGBLOB,
+    ingredients VARCHAR(500),
     CONSTRAINT checkDish CHECK (diningHall='McCarthy' OR diningHall='Parkside' OR diningHall='EVK')
 );
 

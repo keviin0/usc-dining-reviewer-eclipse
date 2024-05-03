@@ -19,20 +19,24 @@ public class ProfilePictureServlet extends HttpServlet {
         String username = request.getParameter("username");
         OutputStream out = response.getOutputStream();
         // Retrieve the user object and get the profile picture byte array
+        System.out.println("image request for user: " + username);
         User user = Database.getUser(username);
-        if(user != null ) {
+        if(user != null  && user.pfp != null) {
+        	System.out.println("image request for user: BEGIN ");
         	byte[] pfpBytes = user.pfp;
 
             // Set the response headers for image data
             response.setContentType("image/jpeg"); // Adjust the MIME type if needed
             response.setContentLength(pfpBytes.length);
-
+            response.setStatus(HttpServletResponse.SC_OK);
             // Write the image data to the response
             out.write(pfpBytes);
             out.flush();
+            System.out.println("image request for user: END ");
         } else {
+        	System.out.println("image request for user: FAILED ");
         	 // User not found, send the error
-            String errorMessage = "User not found";
+            String errorMessage = "image not found";
             byte[] errorBytes = errorMessage.getBytes();
 
             response.setContentType("text/plain");

@@ -26,10 +26,11 @@ public class AddFoodServlet extends HttpServlet {
          String diningHall = d.dininghall;
          boolean isVegan = d.isVegan;
          boolean isVegetarian = d.isVegetarian;
+         String ingredients = d.ingredients;
          
          
          Gson gson = new Gson();
-    	 boolean success = Database.addDish(dishName, allergens, isVegan, isVegetarian, diningHall);
+    	 boolean success = Database.addDish(dishName, allergens, isVegan, isVegetarian, diningHall, ingredients);
          if(!success) {
              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
              String error = "Failed to add dish to dininghall";

@@ -5,4 +5,5 @@ public class DishForServlet {
 	public String dininghall;
 	public boolean isVegan;
 	public boolean isVegetarian;
+	public String ingredients;
 }

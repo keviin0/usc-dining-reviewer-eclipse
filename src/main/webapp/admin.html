@@ -2,12 +2,20 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-         <link rel="stylesheet" href="css/popup.css"/>
+        <link rel="stylesheet" href="css/popup.css" />
         <link rel="stylesheet" href="css/landingPage.css" id="lightCSS" />
-        <link rel="stylesheet" href="css/landingpageDark.css" id="darkCSS" disabled />
-        <link rel="stylesheet" href="css/profile-menu.css" id="lightCSS2"/>
-        <link rel="stylesheet" href="css/profile-menuDark.css" id="darkCSS2" disabled/>
-        
+        <link
+            rel="stylesheet"
+            href="css/landingpageDark.css"
+            id="darkCSS"
+            disabled />
+        <link rel="stylesheet" href="css/profile-menu.css" id="lightCSS2" />
+        <link
+            rel="stylesheet"
+            href="css/profile-menuDark.css"
+            id="darkCSS2"
+            disabled />
+
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -227,6 +235,14 @@
                                         >
                                     </div></label
                                 ><br />
+                                <label>
+                                    <div class ="formlabels">
+                                        Ingredients:
+                                        <textarea
+                                        id="ingredients-text"
+                                        required></textarea>
+                                    </div><br>
+                                </label>
                                 <label
                                     ><div class="formlabels">Dining hall</div>
                                     <select name="select" id="select" required>
@@ -244,6 +260,11 @@
                                         </option>
                                     </select></label
                                 ><br />
+                                <!-- Image upload input -->
+                                <label>
+                                    <div class="formlabels">Upload Image:</div>
+                                    <input type="file" id="dish-image" accept="image/png, image/jpg" required />
+                                </label>
                                 <div id="submitadd-div">
                                     <input id="submitfood" type="submit" />
                                 </div>

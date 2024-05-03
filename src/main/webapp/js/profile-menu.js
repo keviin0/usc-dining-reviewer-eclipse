@@ -158,6 +158,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Check if user is logged in
     if (isLoggedin()) {
+        // Fetch and store the profile picture blob after successful login
+       
         // User is logged in, show all menu options
         document.getElementById("reviewsLink").style.display = "flex";
         document.getElementById("settingsToggle").style.display = "flex";
@@ -205,8 +207,9 @@ function updateLoginDisplay(name, expimg, minimg){
 
 function getProfilePictureURL() {
   const pfpFileData = JSON.parse(localStorage.getItem("pfpFile"));
-
+    console.log("getting profile picture..");
   if (pfpFileData) {
+      console.log("found profile picture..");
     const { name } = pfpFileData;
     const blobData = localStorage.getItem(`pfpFileBlob-${name}`);
 
@@ -222,9 +225,11 @@ function getProfilePictureURL() {
       return URL.createObjectURL(file);
     }
   }
-
+    console.log("null profile picture..");
   return "assets/defaultpfp.png"; // Default profile picture
 }
+
+
 
 function logout() {
     // Print into console this text to verify logout function was called

@@ -115,66 +115,77 @@ function registerUser() {
         });
 }
 
-function login() {
+async function login() {
     let data = {
         username: document.getElementById("email-login").value.trim(),
         hashedPassword: document.getElementById("password-login").value.trim()
     };
 
-    $.ajax({
-        type: "GET",
-        url: "UserServlet",
-        data: data,
-        success: function (response) {
-            console.log(response);
-            if (response.status === "Success") {
-                //window.location.href = "index.html";
-                localStorage.setItem("username", data.username);
-                localStorage.setItem("online", true);
-            }
+    try {
+        const response = await $.ajax({
+            type: "GET",
+            url: "UserServlet",
+            data: data
+        });
+
+        console.log(response);
+        if (response.status === "Success") {
+            localStorage.setItem("username", data.username);
+            localStorage.setItem("online", true);
 
             if (response.admin_status === "1") {
-                //alert("user is an admin");
                 localStorage.setItem("admin", true);
             }
-        },
-        error: function (response) {
-            console.log("In error");
-            if (response.status === "Failure") {
-                document.getElementById("login-msg").innerHTML = "Error";
+
+            try {
+                await fetchAndStoreProfilePictureBlob();
+                console.log("redirecting...");
+                window.location.href = "index.html";
+            } catch (error) {
+                console.log("Error fetching and storing profile picture:", error);
             }
         }
-    });
+    } catch (error) {
+        console.log("In error:", error);
+        document.getElementById("login-msg").innerHTML = "Error";
+    }
+}
 
-    let formData = new FormData();
+function fetchAndStoreProfilePictureBlob() {
+    console.log("fetching user image");
+    return new Promise((resolve, reject) => {
+        let data = {
+            username: localStorage.getItem("username")
+        };
 
-    let username = document.getElementById("email-signup").value.trim();
-    formData.append("username", username);
-
-    $.ajax({
-        type: "GET",
-        url: "ProfilePictureServlet",
-        data: data,
-        xhrFields: {
-            responseType: 'blob' // Fetch as blob
-        },
-        success: function (response) {
-             const reader = new FileReader();
-            reader.onload = function () {
-                const binaryData = reader.result.split(",")[1];
-                localStorage.setItem(
-                    "pfpFile",
-                    JSON.stringify({ name: response.name })
-                );
-                localStorage.setItem(
-                    `pfpFileBlob-${response.name}`,
-                    binaryData
-                );
-            };
-            reader.readAsDataURL(response);
-        },
-        error: function (response) {
-            console.log("Error fetching profile picture:", response);
-        }
+        $.ajax({
+            type: "GET",
+            url: "ProfilePictureServlet",
+            data: data,
+            xhrFields: {
+                responseType: "blob" // Fetch as blob
+            },
+            success: function (response) {
+                console.log(response);
+                    const reader = new FileReader();
+                    reader.onload = function () {
+                        const binaryData = reader.result.split(",")[1];
+                        localStorage.setItem(
+                            "pfpFile",
+                            JSON.stringify({ name: response.name })
+                        );
+                        localStorage.setItem(
+                            `pfpFileBlob-${response.name}`,
+                            binaryData
+                        );
+                        resolve(); // Resolve the promise
+                    };
+                    reader.readAsDataURL(response);
+            },
+            error: function (response) {
+                console.log("Error fetching profile picture:", response);
+                resolve();
+            }
+        });
     });
 }

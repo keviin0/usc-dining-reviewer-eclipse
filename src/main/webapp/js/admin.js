@@ -8,7 +8,8 @@ function addDish(event){
         allergens: [],
         dininghall: document.getElementById('select').value,
         isVegan: document.querySelector('#allergen-div input[value="vegan"]').checked ? true : false,
-        isVegetarian: document.querySelector('#allergen-div input[value="vegetarian"]').checked ? true : false
+        isVegetarian: document.querySelector('#allergen-div input[value="vegetarian"]').checked ? true : false,
+        ingredients: document.getElementById('ingredients-text').value
     };
 
     // Gather allergens, excluding vegan and vegetarian
@@ -46,6 +47,29 @@ function addDish(event){
         // Handle error response
         console.error('Error submitting dish:', error);
     });
+    
+    
+    // Send image data to AddFoodImgServlet
+    var img = document.getElementById("dish-image").files[0];
+    let dishName = document.getElementById("dishname-input").value;
+    formData = new formData();
+    formData.append("img", img);
+    formData.append("dishName", dishName);
+    
+    fetch("AddFoodImgServlet", {
+        method: "POST",
+        body: formData
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Food picture uploaded successfully.");
+            } else {
+                console.error("Failed to upload Food picture.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error uploading Food picture:", error);
+        });
 }
 
 

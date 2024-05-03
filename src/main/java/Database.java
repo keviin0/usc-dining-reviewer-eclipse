@@ -137,6 +137,38 @@ public class Database {
 	        return false;
 	    }
 	}
+	
+	public static boolean addFoodImg(InputStream is, String dishName) {
+		if (is == null || dishName == null || dishName.isEmpty()) {
+	        // Input validation: Ensure InputStream and dishName are not null or empty
+	        return false;
+	    }
+	    
+	    try {
+	        PreparedStatement statement = conn.prepareStatement("UPDATE diningHall.dishes SET img = ? WHERE dishName = ?");
+	        statement.setBlob(1, is);
+	        statement.setString(2, dishName);
+	        int rows = statement.executeUpdate();
+	        
+	        // Close the PreparedStatement
+	        statement.close();
+	        
+	        if (rows > 0) {
+	            // Image updated successfully
+	            System.out.println("Updated dishName picture for user: " + dishName);
+	            return true;
+	        } else {
+	            // No rows were updated (user not found or no change)
+	            System.out.println("dishName not found or no change in dishName picture for user: " + dishName);
+	            return false;
+	        }
+	    } catch (SQLException e) {
+	        // Handle SQL exception
+	        e.printStackTrace();
+	        return false;
+	    }
+		
+	}
 	/**
 	 * Adds a new review to the database. Also updates the reviewed dish's star
 	 * count.
@@ -211,7 +243,7 @@ public class Database {
 	 * @return true if the addition was successful, false if not
 	 */
 	public static boolean addDish(Dish dish) {
-		return addDish(dish.dishName, dish.allergens, dish.isVegan, dish.isVegetarian, dish.dininghall);
+		return addDish(dish.dishName, dish.allergens, dish.isVegan, dish.isVegetarian, dish.dininghall, null);
 	}
 
 	/**
@@ -224,17 +256,18 @@ public class Database {
 	 * @param isVegetarian whether or not the dish to be added is vegetarian
 	 * @param diningHall   which dining hall the dish is located in. This string
 	 *                     must be equal to "McCarthy", "Parkside", or "EVK".
+	 * @param ingredients 
 	 * @return true if the addition was successful, false if not
 	 */
 	public static boolean addDish(String dishName, String allergens, boolean isVegan, boolean isVegetarian,
-			String diningHall) {
+			String diningHall, String ingredients) {
 
 		try {
 
 			statement = conn.prepareStatement(
-					"INSERT INTO diningHall.dishes(dishName, allergens, isVegan, isVegetarian, diningHall) VALUES ('" + dishName
+					"INSERT INTO diningHall.dishes(dishName, allergens, isVegan, isVegetarian, diningHall, ingredients) VALUES ('" + dishName
 							+ "', '" + allergens + "', " + String.valueOf(isVegan).toUpperCase() + ", "
-							+ String.valueOf(isVegetarian).toUpperCase() + ", '" + diningHall + "')");
+							+ String.valueOf(isVegetarian).toUpperCase() + ", '" + diningHall + "', '" + ingredients +"')");
 			statement.execute();
 
 			return true;

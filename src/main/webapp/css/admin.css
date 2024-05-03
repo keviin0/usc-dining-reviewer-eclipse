@@ -38,6 +38,11 @@ body {
 #removeText,
 .formlabels {
     font-size: 22px;
+    padding-bottom: 5px
+}
+
+#select{
+    margin-bottom: 10px;
 }
 
 #removeinner-div,
