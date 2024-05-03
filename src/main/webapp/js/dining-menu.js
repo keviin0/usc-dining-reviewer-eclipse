@@ -63,18 +63,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	    /* ingredientsLink.href = "ingredients.html"; */
 	    ingredientsLink.href = `ingredients.html?dishName=${encodedDishName}&allergens=${encodedAllergens}`;
 	    ingredientsLink.textContent = "Ingredients";
-	    const reviewLink = document.createElement('a');
-	    reviewLink.href = "review.html";
-	    reviewLink.textContent = "Reviews";
-	    reviewLink.addEventListener('click', function(event) {
-	        event.preventDefault();
-	        localStorage.setItem('selectedDish', JSON.stringify(dish));
-	        window.location.href = 'Reviews.html';
-	    });
-	    foodLinks.appendChild(ingredientsLink);
-	    foodLinks.appendChild(document.createTextNode(" | "));
-	    foodLinks.appendChild(reviewLink);
-	
+	    if (localStorage.getItem("username") != null)
+	    {
+			const reviewLink = document.createElement('a');
+		    reviewLink.href = "review.html";
+		    reviewLink.textContent = "Reviews";
+		    reviewLink.addEventListener('click', function(event) {
+		        event.preventDefault();
+		        localStorage.setItem('selectedDish', JSON.stringify(dish));
+		        window.location.href = 'Reviews.html';
+		    });
+		    
+		    foodLinks.appendChild(document.createTextNode(" | "));
+		    foodLinks.appendChild(reviewLink);
+		}
+		
+		foodLinks.appendChild(ingredientsLink);
 	    const allergensContainer = document.createElement('div');
 	    allergensContainer.className = 'legend-item';
 	    var allergensList = dish.allergens.split(',');
@@ -103,14 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             menuItems.forEach(function(item) {
 				const foodDetails = item.querySelector('.food-details');
-                /*const itemAllergens = Array.from(item.querySelectorAll('.allergens span'))
-                    .map(span => span.classList[0].split('-')[1]); */
-                    
                 const itemAllergens = Array.from(foodDetails.querySelectorAll('.legend-item span'))
                 .map(span => span.className.split('-')[1]);
 
                 if (selectedAllergens.length === 0 || selectedAllergens.every(allergen => !itemAllergens.includes(allergen))) {
-                    item.style.display = 'block';
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
