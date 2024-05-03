@@ -52,7 +52,7 @@ function addDish(event){
     // Send image data to AddFoodImgServlet
     var img = document.getElementById("dish-image").files[0];
     let dishName = document.getElementById("dishname-input").value;
-    formData = new formData();
+    formData = new FormData();
     formData.append("img", img);
     formData.append("dishName", dishName);
     
