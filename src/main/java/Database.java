@@ -1,3 +1,4 @@
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -6,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Vector;
+
+import com.mysql.cj.jdbc.Blob;
 
 public class Database {
 	private static Connection conn = null;
@@ -63,7 +66,7 @@ public class Database {
 	 */
 	public static boolean addUser(User user) {
 
-		return addUser(user.username, user.hashedPassword, user.profilePicFileName);
+		return addUser(user.username, user.hashedPassword);
 	}
 
 	/**
@@ -77,12 +80,12 @@ public class Database {
 	 *                           of 50 characters.
 	 * @return true if the addition was successful, false if not
 	 */
-	public static boolean addUser(String username, String hashedPassword, String profilePicFilename) {
+	public static boolean addUser(String username, String hashedPassword) {
 
 		try {
 			statement = conn
-					.prepareStatement("INSERT INTO diningHall.users(username, hashedPassword, profilePictureFileName) VALUES ('"
-							+ username + "', '" + hashedPassword + "', '" + profilePicFilename + "')");
+					.prepareStatement("INSERT INTO diningHall.users(username, hashedPassword) VALUES ('"
+							+ username + "', '" + hashedPassword + "')");
 			statement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -104,6 +107,36 @@ public class Database {
 
 	}
 
+	public static boolean addUserImg(InputStream is, String username) {
+	    if (is == null || username == null || username.isEmpty()) {
+	        // Input validation: Ensure InputStream and username are not null or empty
+	        return false;
+	    }
+	    
+	    try {
+	        PreparedStatement statement = conn.prepareStatement("UPDATE diningHall.users SET pfp = ? WHERE username = ?");
+	        statement.setBlob(1, is);
+	        statement.setString(2, username);
+	        int rows = statement.executeUpdate();
+	        
+	        // Close the PreparedStatement
+	        statement.close();
+	        
+	        if (rows > 0) {
+	            // Image updated successfully
+	            System.out.println("Updated profile picture for user: " + username);
+	            return true;
+	        } else {
+	            // No rows were updated (user not found or no change)
+	            System.out.println("User not found or no change in profile picture for user: " + username);
+	            return false;
+	        }
+	    } catch (SQLException e) {
+	        // Handle SQL exception
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 	/**
 	 * Adds a new review to the database. Also updates the reviewed dish's star
 	 * count.
@@ -234,8 +267,14 @@ public class Database {
 			toReturn.username = set.getString("username");
 			toReturn.hashedPassword = set.getString("hashedPassword");
 			toReturn.totalReviewsGiven = Integer.valueOf(set.getString("totalReviewsGiven"));
-			toReturn.profilePicFileName = set.getString("profilePictureFileName");
-			toReturn.location = set.getString("location");
+			
+			// Retrieve the pfp field as a byte array
+            java.sql.Blob pfpBlob = set.getBlob("pfp");
+            if (pfpBlob != null) {
+                toReturn.pfp = pfpBlob.getBytes(1, (int) pfpBlob.length());
+            }
+            
+            toReturn.location = set.getString("location");
 			return toReturn;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -243,6 +282,8 @@ public class Database {
 		}
 
 	}
+	
+	
 
 	/**
 	 * Gets the Dish object from the name of the dish

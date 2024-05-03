@@ -12,7 +12,8 @@ import java.io.PrintWriter;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 
-    private Gson gson = new Gson();
+    private static final long serialVersionUID = 1L;
+	private Gson gson = new Gson();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,9 +26,8 @@ public class UserServlet extends HttpServlet {
 
             String username = requestData.get("username").getAsString();
             String hashedPassword = requestData.get("hashedPassword").getAsString();
-            String profilePicFileName = requestData.get("profilePicFileName").getAsString();
 
-            boolean success = Database.addUser(username, hashedPassword, profilePicFileName);
+            boolean success = Database.addUser(username, hashedPassword);
             JsonObject jsonResponse = new JsonObject();
 
             if (success) {
@@ -88,6 +88,9 @@ public class UserServlet extends HttpServlet {
             	jsonResponse.addProperty("admin_status", "Failed to determine admin Status");
             	response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
             }
+            
+            
+            
 
             out.print(gson.toJson(jsonResponse));
         } catch (Exception e) {

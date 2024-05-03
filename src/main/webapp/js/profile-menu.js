@@ -166,6 +166,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (localStorage.getItem("admin") === true) {
             document.getElementById("adminsLink").style.display = "flex";
         }
+        
+        let minimg = document.getElementById("minimized-icon");
+        let expimg = document.getElementById("expanded-icon");
+        let name = document.getElementById("expanded-username");
+        updateLoginDisplay(name, expimg, minimg);
+        
     } else {
         // User is not logged in, hide specific menu options
         document.getElementById("reviewsLink").style.display = "none";
@@ -176,10 +182,50 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("logoutButton").innerHTML =
             '<button class="LogOut" onClick="login()">Log IN</button>';
         document.getElementById("adminsLink").style.display = "none";
+        let minimg = document.getElementById("minimized-icon");
+        let expimg = document.getElementById("expanded-icon");
+        let name = document.getElementById("expanded-username");
+        updateLoginDisplay(name, expimg, minimg);
     }
 });
 
-// ------- UPDATE SOMETHING EITHER LOCALSTORAGE, A COOKIE, OR URL PARAM TODO <<<<<<<<<
+function updateLoginDisplay(name, expimg, minimg){
+    var logname = localStorage.getItem("username");
+    if(logname != null){
+        // Split the email address by "@" and take the first part
+        var username = logname.split("@")[0];
+        name.innerText = username;
+    } else {
+        name.innerText = "Guest";
+    }
+    
+    expimg.src = getProfilePictureURL();
+    minimg.src = getProfilePictureURL();
+}
+
+function getProfilePictureURL() {
+  const pfpFileData = JSON.parse(localStorage.getItem("pfpFile"));
+
+  if (pfpFileData) {
+    const { name } = pfpFileData;
+    const blobData = localStorage.getItem(`pfpFileBlob-${name}`);
+
+    if (blobData) {
+      const binaryData = atob(blobData);
+      const bytes = new Uint8Array(binaryData.length);
+      for (let i = 0; i < binaryData.length; i++) {
+        bytes[i] = binaryData.charCodeAt(i);
+      }
+
+      const blob = new Blob([bytes], { type: "image/jpeg" }); // Adjust the MIME type if needed
+      const file = new File([blob], name, { type: blob.type });
+      return URL.createObjectURL(file);
+    }
+  }
+
+  return "assets/defaultpfp.png"; // Default profile picture
+}
+
 function logout() {
     // Print into console this text to verify logout function was called
     localStorage.clear();
