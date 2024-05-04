@@ -348,6 +348,7 @@ public class Database {
 	 * @return the dish if contained in the database, null if not
 	 */
 	public static Dish getDish(String dishname) {
+		System.out.println(dishname);
 		Dish toReturn = new Dish();
 		try {
 			PreparedStatement statement = conn
@@ -357,6 +358,7 @@ public class Database {
 			toReturn.dishName = set.getString("dishName");
 			toReturn.allergens = set.getString("allergens");
 			toReturn.isVegan = (Integer.valueOf(set.getString("isVegan")) == 1);
+			toReturn.ingredients = set.getString("ingredients");
 
 			toReturn.isVegetarian = (Integer.valueOf(set.getString("isVegetarian")) == 1);
 

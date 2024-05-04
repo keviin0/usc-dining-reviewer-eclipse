@@ -6,6 +6,7 @@ public class Dish {
 	public boolean isVegan;
 	public boolean isVegetarian;
 	public String dininghall;
+	public String ingredients;
 	public double averageStarRating;
 	public int totalReviews;
 	@Override
