@@ -1,128 +1,100 @@
 document.addEventListener('DOMContentLoaded', function() {
-	var menuContainer = document.querySelector(".menu");
-	const filterButton = document.querySelector('.filter-button');
-	const filterCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
-	const filterOptions = document.querySelector('.filter-options');
-	
-	filterButton.addEventListener('click', function() {
-        filterOptions.style.display = filterOptions.style.display === 'block' ? 'none' : 'block';
-    });
+    const reviewsContainer = document.getElementById('reviewsList');
+    const selectedDish = JSON.parse(localStorage.getItem('selectedDish'));
     
-	$(document).ready(function() {
-	    var payload = {
-	        diningHall: localStorage.getItem("selectedDiningHall")
-	    };
-	
+    function fetchReviews(dishName) {
+		console.log(dishName);
 	    $.ajax({
-	        url: 'FoodServlet',
+	        url: 'ReviewServlet',
 	        type: 'POST',
 	        contentType: 'application/json',
-	        data: JSON.stringify(payload),
-	        dataType: 'json',
+	        data: JSON.stringify({ foodName: dishName }),
 	        success: function(data) {
-	            var testData = data;
-	            console.log(testData);
-	
-	            // Call function to update the UI with received data
-	            updateMenus(testData);
+	            if ($.isArray(data)) {
+	                displayReviews(data);
+	            } else {
+	                $('#reviewsContainer').html('<li>' + data + '</li>');
+	            }
 	        },
-	        error: function(xhr, status, error) {
-	            console.error("Error occurred: " + error);
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.error('Error fetching reviews:', textStatus, errorThrown);
+	            $('#reviewsList').html('<li>No reviews for this food.</li>');
 	        }
 	    });
-	
-	    function updateMenus(menuData) {
-	        menuData.forEach(dish => menuContainer.appendChild(createMenuItem(dish)));
-	    }
-	});
-    
-
-    function createMenuItem(dish) {
-	    const menuItem = document.createElement('div');
-	    menuItem.className = 'menu-item';
-	
-	    const foodImageBox = document.createElement('div');
-	    foodImageBox.className = 'food-image-box';
-	    const image = document.createElement('img');
-	    image.src = 'https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg';  // Placeholder image URL
-	    image.alt = 'Placeholder Image';
-	    foodImageBox.appendChild(image);
-	
-	    const foodDetails = document.createElement('div');
-	    foodDetails.className = 'food-details';
-	
-	    const foodTitle = document.createElement('div');
-	    foodTitle.className = 'food-title';
-	    foodTitle.textContent = dish.dishName;
-	
-	    const foodLinks = document.createElement('div');
-	    foodLinks.className = 'food-links';
-	    const ingredientsLink = document.createElement('a');
-	    const encodedDishName = encodeURIComponent(dish.dishName);
-    	const encodedAllergens = encodeURIComponent(dish.allergens);
-	    /* ingredientsLink.href = "ingredients.html"; */
-	    ingredientsLink.href = `ingredients.html?dishName=${encodedDishName}&allergens=${encodedAllergens}`;
-	    ingredientsLink.textContent = "Ingredients";
-	    const reviewLink = document.createElement('a');
-	    reviewLink.href = "review.html";
-	    reviewLink.textContent = "Reviews";
-	    reviewLink.addEventListener('click', function(event) {
-	        event.preventDefault();
-	        localStorage.setItem('selectedDish', JSON.stringify(dish));
-	        window.location.href = 'Reviews.html';
-	    });
-	    foodLinks.appendChild(ingredientsLink);
-	    foodLinks.appendChild(document.createTextNode(" | "));
-	    foodLinks.appendChild(reviewLink);
-	
-	    const allergensContainer = document.createElement('div');
-	    allergensContainer.className = 'legend-item';
-	    var allergensList = dish.allergens.split(',');
-	    allergensList.forEach(allergen => {
-	        const span = document.createElement('span');
-	        span.className = `allergen-${allergen}`;
-	        allergensContainer.appendChild(span);
-	    });
-	
-	    foodDetails.appendChild(foodTitle);
-	    foodDetails.appendChild(foodLinks);
-	    foodDetails.appendChild(allergensContainer);
-	
-	    menuItem.appendChild(foodImageBox);
-	    menuItem.appendChild(foodDetails);
-	
-	    return menuItem;
 	}
-    
-    filterCheckboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            const selectedAllergens = Array.from(filterCheckboxes)
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-                
-            const menuItems = document.querySelectorAll('.menu-item');
+	
+	fetchReviews(selectedDish.dishName);
+	
+	$('#reviewForm').submit(function(event) {
+        event.preventDefault();
 
-            menuItems.forEach(function(item) {
-				const imageBox = item.querySelector('.food-image-box')
-				const foodDetails = item.querySelector('.food-details');
-                /*const itemAllergens = Array.from(item.querySelectorAll('.allergens span'))
-                    .map(span => span.classList[0].split('-')[1]); */
-                    
-                const itemAllergens = Array.from(foodDetails.querySelectorAll('.legend-item span'))
-                .map(span => span.className.split('-')[1]);
+        var reviewData = {
+            authorUsername: localStorage.getItem("username"),
+            dishName: selectedDish.dishName,
+            reviewText: $('#reviewText').val(),
+            pictureFileName: '',
+            starRating: parseInt($('#starRating').val()),
+            timestamp: new Date().toISOString()
+        };
 
-                if (selectedAllergens.length === 0 || selectedAllergens.every(allergen => !itemAllergens.includes(allergen))) {
-                    item.style.display = 'block';
-                    item.style.alignItems = 'center';
-					imageBox.style.flexShrink = '0';
-					foodDetails.style.marginLeft = '20px';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        $.ajax({
+            url: 'AddReviewServlet',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(reviewData),
+            success: function(response) {
+                alert('Review successfully added');
+                // Optionally, clear the form or handle response further
+                $('#reviewForm')[0].reset();
+            },
+            error: function(xhr, status, error) {
+                alert('Error adding review: ' + xhr.responseText);
+            }
         });
     });
 
-    /* menuData.breakfast.forEach(dish => breakfastMenuContainer.appendChild(createMenuItem(dish)));
-    menuData.lunch.forEach(dish => lunchMenuContainer.appendChild(createMenuItem(dish))); */
+	/*
+	const simulatedResponse = {
+	    reviews: [
+	        {
+	            authorUsername: "personA",
+	            dishName: selectedDish.dishName,
+	            reviewText: "test1",
+	            pictureFileName: "https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium",
+	            starRating: 5,
+	            timestamp: "2024-04-01 10:00"
+	        },
+	        {
+	            authorUsername: "personB",
+	            dishName: selectedDish.dishName,
+	            reviewText: "test2",
+	            pictureFileName: "https://a.cdn-hotels.com/gdcs/production0/d1513/35c1c89e-408c-4449-9abe-f109068f40c0.jpg?impolicy=fcrop&w=800&h=533&q=medium",
+	            starRating: 3,
+	            timestamp: "test2"
+	        }
+	    ]
+	};
+	
+    displayReviews(simulatedResponse.reviews);
+    */
+
+    function displayReviews(reviews) {
+        reviewsContainer.innerHTML = '';
+        reviews.forEach(review => {
+            const reviewElement = document.createElement('li');
+            reviewElement.className = 'review-item';
+
+            reviewElement.innerHTML = `
+                <div class="review-author">
+                    <strong>${review.authorUsername}</strong> at <span class="review-timestamp">${review.timestamp}</span>
+                </div>
+                <div class="review-rating">
+                    Rating: ${'★'.repeat(review.starRating)}${'☆'.repeat(5 - review.starRating)}
+                </div>
+                <div class="review-text">${review.reviewText}</div>
+                ${review.pictureFileName ? `<img src="${review.pictureFileName}" alt="Review image of ${review.dishName}" style="max-width:100%; height:auto;">` : ''}
+            `;
+            reviewsContainer.appendChild(reviewElement);
+        });
+    }
 });
