@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data: JSON.stringify(reviewData),
             success: function(response) {
                 alert('Review successfully added');
+                location.href = "";
                 // Optionally, clear the form or handle response further
                 $('#reviewForm')[0].reset();
             },
