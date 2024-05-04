@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		        window.location.href = 'Reviews.html';
 		    });
 		    
-		    foodLinks.appendChild(document.createTextNode(" | "));
 		    foodLinks.appendChild(reviewLink);
+		    foodLinks.appendChild(document.createTextNode(" | "));
 		}
 		
 		foodLinks.appendChild(ingredientsLink);

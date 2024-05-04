@@ -23,7 +23,7 @@ public class FoodServlet extends HttpServlet {
 
          Gson gson = new Gson();
          Vector<Dish> dishes = new Vector<Dish>();
-         if(diningHall.equals("USC Village Dining Hall")) {
+         if(diningHall.equals("McCarthy")) {
         	 dishes = Database.mcCarthyDishes();
          } else if(diningHall.equals("Parkside")) {
         	 dishes = Database.parksideDishes();

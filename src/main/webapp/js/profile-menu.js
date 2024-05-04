@@ -165,9 +165,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("settingsToggle").style.display = "flex";
         document.getElementById("logoutButton").innerHTML =
             '<button class="LogOut" onClick="logout()">Log OUT</button>';
-        if (localStorage.getItem("admin") === true) {
+        if (localStorage.getItem("admin") === "true") {
             document.getElementById("adminsLink").style.display = "flex";
-        }
+        } else {
+			document.getElementById("adminsLink").style.display = "none";
+		}
         
         let minimg = document.getElementById("minimized-icon");
         let expimg = document.getElementById("expanded-icon");
