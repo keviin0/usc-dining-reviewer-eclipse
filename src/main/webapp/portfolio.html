@@ -24,6 +24,7 @@
             </div>
         </nav>
         <div class="container">
+            <div class="container">
             <div class="titleBar">
                 <div class="logo">
                     <a href="index.html">
@@ -43,8 +44,11 @@
                     <!-- The dropdown menu -->
                     <div class="dropdown-menu">
                         <div class="expanded-state">
-                            <div class="TitleArea">
-                                <img class="user-pfp" src="assets/defaultpfp.png" >
+                            <div class="TitleArea" style="">
+                                <img
+                                    class="user-pfp"
+                                    src="assets/defaultpfp.png" 
+                                    id = "expanded-icon"/>
                                 <div id="expanded-username">username</div>
                                 <div class="arrow"> <i class="fas fa-chevron-up"></i> </div>
                             </div>
@@ -71,6 +75,14 @@
                                     <div class="Reviews">Reviews</div>
                                 </a>
                                 
+                                <!-- Link to the "Admin" page -->
+                                <a
+                                    href="admin.html"
+                                    class="Option"
+                                    id="adminsLink">
+                                    <div class="admin">Admin Tools</div>
+                                </a>
+                                
                                 <!-- Toggle to the "Settings" Menu -->
                                 <div onClick="settingsToggle()" class="Option" id="settingsToggle">
                                     <div class="Settings">Settings</div>
@@ -79,10 +91,10 @@
                                 
                                 <!--Only displayed if settings button is displayed-->
                                 <div onClick="ChangeUsername()" class="Option_Settings" id="usernameOption">
-                                    <div class="Settings">Username</div>
+                                    <div class="Settings">Email</div>
                                 </div>
                                 <div onClick="ChangeCredentials()" class="Option_Settings" id="credentialsOption">
-                                    <div class="Settings">Email/Password</div>
+                                    <div class="Settings">Password</div>
                                 </div>
                                 <div onClick="" class="Option_Settings Option_Darktoggle" id="darkModeOption">
                                     <div class="Settings">Dark/Light</div>
@@ -103,6 +115,7 @@
                     </div>
                 </div>
             </div>
+     </div>
             <div class="links">
             	<a href="dining-menu.html">Menu</a> | <a href="ingredients.html">Ingredients</a>
         	</div>
